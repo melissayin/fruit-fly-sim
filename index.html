@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <head>
+        <title>Fruit Fly Genetics Simulator</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body onload = "switchMenu('homescreen')">
+        <section id = "homescreen" class = "screen">
+            <h1>Fruit Fly Genetics Simulator</h1>
+            <p>Simulate fruit fly breeding and observe resulting patterns</p>
+            <input type = "button" value = "Use custom parents" id = "chooseCustom" onclick = "switchMenu('customMenu')">
+            <input type = "button" value = "Use preset parents" id = "choosePreset" onclick = "switchMenu('presetMenu')">
+        </section>
+
+        <section id = "customMenu" class = "screen">
+            <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
+            <h3>custom menu</h3>
+            <input type = "button" value = "Toggle Allele Key" id = "keyButton" onclick = "toggleAllele()">
+            <table>
+                <tr>
+                    <td>B</td>
+                    <td>Wild body color</td>
+                </tr>
+                <tr>
+                    <td>b</td>
+                    <td>Brown body color</td>
+                </tr>
+                <tr>
+                    <td>L</td>
+                    <td>Wild eyes</td>
+                </tr>
+                <tr>
+                    <td>S</td>
+                    <td>Small eyes </td>
+                </tr>
+                <tr>
+                    <td>LS</td>
+                    <td>Round eyes</td>
+                </tr>
+                
+            </table>
+            <div id = "alleleKey"></div>
+            
+        </section>
+
+        <section id = "presetMenu" class = "screen">
+            <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
+            <h3>preset</h3>
+            <table>
+                <tr>
+                    <th>Wild Male</th>
+                    <th>Wild Female</th>
+                </tr>
+                <tr>
+                    <td>
+                        <select id = "maleChoices" onchange = "displayChoice('male')">
+                            <option value = "1">Fly 1</option>
+                            <option value = "2">Fly 2</option>
+                            <option value = "3">Fly 3</option>
+                            <option value = "4">Fly 4</option>
+                            <option value = "5">Fly 5</option>
+                            <option value = "6">Fly 6</option>
+                            <option value = "7">Fly 7</option>
+                            <option value = "8">Fly 8</option>
+                            <option value = "9">Fly 9</option>
+                            <option value = "10">Fly 10</option>
+                            <option value = "11">Fly 11</option>
+                            <option value = "12">Fly 12</option>
+                            <option value = "13">Fly 13</option>
+                            <option value = "14">Fly 14</option>
+                            <option value = "15">Fly 15</option>
+                        </select>
+                    </td>
+                    <td>
+                        <select id = "femaleChoices" onchange = "displayChoice('female')">
+                            <option value = "1">Fly 16</option>
+                            <option value = "2">Fly 17</option>
+                            <option value = "3">Fly 18</option>
+                            <option value = "4">Fly 19</option>
+                            <option value = "5">Fly 20</option>
+                            <option value = "6">Fly 21</option>
+                            <option value = "7">Fly 22</option>
+                            <option value = "8">Fly 23</option>
+                            <option value = "9">Fly 24</option>
+                            <option value = "10">Fly 25</option>
+                            <option value = "11">Fly 26</option>
+                            <option value = "12">Fly 27</option>
+                            <option value = "13">Fly 28</option>
+                            <option value = "14">Fly 29</option>
+                            <option value = "15">Fly 30</option>
+                    </td>
+                </tr>
+            </table>
+            <p>Male Fly:</p>
+            <div id = "maleFly"></div>
+            <br>
+            <p>Female Fly:</p>
+            <div id = "femaleFly"></div>
+            <br>
+            <input type = "button" value = "Confirm parents" id = "confirmParents" onclick = confirmParents()>
+            <br><br>
+            <div id = "simMessage"></div>
+            
+        </section>
+
+        <section id = "F1Gen" class = "screen">
+            <h1>F1 generation</h1>
+            <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
+        </section>
+       
+        <script src="script.js"></script>
+    </body>
+    
+</html>
