@@ -18,30 +18,10 @@
             <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
             <h3>custom menu</h3>
             <input type = "button" value = "Toggle Allele Key" id = "keyButton" onclick = "toggleAllele()">
-            <table>
-                <tr>
-                    <td>D</td>
-                    <td>Wild body color</td>
-                </tr>
-                <tr>
-                    <td>d</td>
-                    <td>Brown body color</td>
-                </tr>
-                <tr>
-                    <td>L</td>
-                    <td>Wild eyes</td>
-                </tr>
-                <tr>
-                    <td>S</td>
-                    <td>Small eyes </td>
-                </tr>
-                <tr>
-                    <td>LS</td>
-                    <td>Round eyes</td>
-                </tr>
-                
-            </table>
+         
             <div id = "alleleKey"></div>
+            
+            <div id = "currCustom"></div>
             
         </section>
 
@@ -57,9 +37,9 @@
                     <td>
                         <select id = "maleChoices" onchange = "displayChoice('male')">
                             <option value = "AAAA">Wild Male</option>
-                            <option value = "SYbb">Fly 1</option>
-                            <option value = "SYBb">Fly 2</option>
-                            <option value = "SYBB">Fly 3</option>
+                            <option value = "SYdd">Fly 1</option>
+                            <option value = "SYDd">Fly 2</option>
+                            <option value = "SYDD">Fly 3</option>
                             <option value = "4">Fly 4</option>
                             <option value = "5">Fly 5</option>
                             <option value = "6">Fly 6</option>
@@ -70,7 +50,7 @@
                             <option value = "11">Fly 11</option>
                             <option value = "12">Fly 12</option>
                             <option value = "13">Fly 13</option>
-                            <option value = "LYbb">Fly 14</option>
+                            <option value = "LYdd">Fly 14</option>
                             <option value = "15">Fly 15</option>
                         </select>
                     </td>
@@ -79,7 +59,7 @@
                             <option value = "31">Wild Female</option>
                             <option value = "16">Fly 16</option>
                             <option value = "17">Fly 17</option>
-                            <option value = "SSBB">Fly 18</option>
+                            <option value = "SSDD">Fly 18</option>
                             <option value = "19">Fly 19</option>
                             <option value = "20">Fly 20</option>
                             <option value = "21">Fly 21</option>
@@ -90,7 +70,7 @@
                             <option value = "26">Fly 26</option>
                             <option value = "27">Fly 27</option>
                             <option value = "28">Fly 28</option>
-                            <option value = "LLbb">Fly 29</option>
+                            <option value = "LLdd">Fly 29</option>
                             <option value = "30">Fly 30</option>
                     </td>
                 </tr>

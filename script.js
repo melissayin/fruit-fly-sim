@@ -21,26 +21,35 @@ class Fly {
         //console.log("ALLELES: " + this.alleles);
         return this.alleles;
     }
- 
-    getPhenotype() {
-        let bodyPheno = "";
-        let eyePheno = "";
-        if (this.body.includes('D')) {
-            bodyPheno = "wild";
-        }
-        else {
-            bodyPheno = "brown";
-        }
+    
+    /*
+    D/d = body color -- autosomal dom
+    L/S = eye shape -- x linked 
 
+    */
+    getPhenotype() {
+        let phenos = [];
+        // eyes 
         if (this.eyes == "LL" || this.eyes == "LY") {
-            eyePheno = "wild";
+            phenos[0] = "wild";
         }
         else if (this.eyes == "LS") {
-            eyePheno = "round";
+            phenos[0] = "round";
         }
         else if (this.eyes == "SS" || this.eyes == "SY") {
-            eyePheno = "small";
+            phenos[0] = "small";
         }
+
+        // body 
+        if (this.body.includes('D')) {
+            phenos[1] = "wild";
+        }
+        else {
+            phenos[1] = "brown";
+        }
+
+        return phenos;
+        
     }
 
 }
@@ -124,10 +133,11 @@ function breed(fly1, fly2) {
         child += computeGenotype(trait1, trait2, isFemale); 
         index += 2; 
     }
-    console.log("Child:")
-    console.log(child);
-    console.log("child sec: " + sex);
+    
     let flyChild = new Fly(sex, child, "child");
+    console.log(flyChild);
+    let phenotype = flyChild.getPhenotype();
+    console.log("pheno: " + phenotype)
     return flyChild;
     
 }
@@ -185,5 +195,38 @@ function confirmParents() {
     console.log(maleParent);
     console.log(femaleParent);
     
+}
+
+function toggleAllele() {
+    let key = `<table>
+                <tr>
+                    <td>D</td>
+                    <td>Wild body color (Autosomal Dominant)</td>
+                </tr>
+                <tr>
+                    <td>d</td>
+                    <td>Brown body color (Autosomal Recessive)</td>
+                </tr>
+                <tr>
+                    <td>L</td>
+                    <td>Wild eyes (X-Linked Incomplete Dominance)</td>
+                </tr>
+                <tr>
+                    <td>S</td>
+                    <td>Small eyes (X-Linked Incomplete Dominance)</td>
+                </tr>
+                <tr>
+                    <td>LS</td>
+                    <td>Round eyes (X-Linked Incomplete Dominance)</td>
+                </tr>
+                
+            </table>`
+
+    if (document.getElementById('alleleKey').innerHTML != "") {
+        document.getElementById('alleleKey').innerHTML = "";
+    }
+    else {
+        document.getElementById('alleleKey').innerHTML = key;
+    }
 }
 
