@@ -1,18 +1,24 @@
 /*
-want make
-complete dom auto (body) 
-incomp dom 
-codom (bristles)
-blood type? (would be interesting addition) 
-X linked (eyes) 
-Y linked? (addition )
+traits:
+X linked + incomp (eye shape) 
+eye color complete (eye color)
+complete dom auto (body color) 
+X linked (scallopped wings)
+auto recess (vestigial wings)
+codom (blood* they don't actually have blood)
+incomp dom (bristles)
+Y linked (hairy antennae* not accurate)
 */
 class Fly {
     constructor(sex, alleles, name) {
         this.sex = sex;
         this.alleles = alleles;
+        // L/S
         this.eyes = alleles.substring(0, 2);
+        // D/d
         this.body = alleles.substring(2, 4);
+        // A/B/O
+        this.blood = alleles.substring(4, 6);
         
         this.name = name;
     }
@@ -47,6 +53,22 @@ class Fly {
         else {
             phenos[1] = "brown";
         }
+
+        // blood
+        if (this.blood == "AA" || this.blood == "AO" || this.blood == "OA") {
+            phenos[2] = "Type A";
+        }
+        else if (this.blood == "BB" || this.blood == "BO" || this.blood == "OB") {
+            phenos[2] = "Type B";
+        }
+        else if (this.blood == "AB" || this.blood == "BA") {
+            phenos[2] = "Type AB";
+        }
+        else {
+            phenos[2] = "Type O";
+        }
+
+        // bristles 
 
         return phenos;
         
