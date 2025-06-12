@@ -1,13 +1,16 @@
 /*
 traits:
 X linked + incomp (eye shape) 
-eye color complete (eye color)
 complete dom auto (body color) 
-X linked (scallopped wings)
+X linked recessive (scallopped wings)
 auto recess (vestigial wings)
-codom (blood* they don't actually have blood)
-incomp dom (bristles)
+X linked recess (forked bristles)
+auto recess (shaven bristles)
 Y linked (hairy antennae* not accurate)
+
+ditch:
+eye color complete (eye color)
+codom (blood* they don't actually have blood)
 */
 class Fly {
     constructor(sex, alleles, name) {
@@ -15,10 +18,18 @@ class Fly {
         this.alleles = alleles;
         // L/S
         this.eyes = alleles.substring(0, 2);
-        // D/d
+        // B/b
         this.body = alleles.substring(2, 4);
-        // A/B/O
-        this.blood = alleles.substring(4, 6);
+        // D/d
+        this.scallop = alleles.substring(4, 6);
+        // G/g
+        this.vestigial = alleles.substring(6, 8);
+        // F/f
+        this.forked = alleles.substring(8, 10);
+        // S/s
+        this.shaven = alleles.substring(10, 12);
+        // E/e
+        this.hairy = alleles.substring(12, 14);
         
         this.name = name;
     }
@@ -28,12 +39,9 @@ class Fly {
         return this.alleles;
     }
     
-    /*
-    D/d = body color -- autosomal dom
-    L/S = eye shape -- x linked 
-
-    */
+   
     getPhenotype() {
+        
         let phenos = [];
         // eyes 
         if (this.eyes == "LL" || this.eyes == "LY") {
@@ -47,28 +55,51 @@ class Fly {
         }
 
         // body 
-        if (this.body.includes('D')) {
+        if (this.body.includes('B')) {
             phenos[1] = "wild";
         }
         else {
             phenos[1] = "brown";
         }
 
-        // blood
-        if (this.blood == "AA" || this.blood == "AO" || this.blood == "OA") {
-            phenos[2] = "Type A";
+        // scallopped wings
+        if (this.scallop == "dd" || this.scallop == "dY") {
+            phenos[2] = "scalloped";
+        } 
+        else {
+            phenos[2] = "wild";
         }
-        else if (this.blood == "BB" || this.blood == "BO" || this.blood == "OB") {
-            phenos[2] = "Type B";
-        }
-        else if (this.blood == "AB" || this.blood == "BA") {
-            phenos[2] = "Type AB";
+
+        // vestigial wings 
+        if (this.vestigial == "vv") {
+            phenos[3] = "vestigial";
         }
         else {
-            phenos[2] = "Type O";
+            phenos[3] = "wild";
         }
 
         // bristles 
+        if (this.forked == "ff" || this.forked == "fY") {
+            phenos[4] = "forked";
+        }
+        else {
+            phenos[4] = "wild";
+        }
+
+        if (this.shaven == "ss") {
+            phenos[5] = "shaven";
+        }
+        else {
+            phenos[5] = "wild";
+        }
+
+        // antennae
+        if (this.hairy == "Xe") {
+            phenos[6] = "hairy";
+        }
+        else {
+            phenos[6] = "wild";
+        }
 
         return phenos;
         
