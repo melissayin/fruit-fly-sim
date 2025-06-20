@@ -153,7 +153,7 @@ function computeGenotype(gtype1, gtype2, isFemale) {
 
     }
     
-    console.log("mom + dad: " + momAllele + dadAllele);
+    //console.log("mom + dad: " + momAllele + dadAllele);
 
     return momAllele + dadAllele; 
     
@@ -178,10 +178,10 @@ function breed(fly1, fly2) {
     for (let i = 0; i < alLength / 2; i++) {
         let trait1 = fly1.getAlleles().toString().substr(index, 2);
         let trait2 = fly2.getAlleles().toString().substr(index, 2);
-        console.log("trait 1:")
-        console.log(trait1);
-        console.log("trait 2:")
-        console.log(trait2);
+       // console.log("trait 1:")
+       // console.log(trait1);
+       // console.log("trait 2:")
+       // console.log(trait2);
         
         child += computeGenotype(trait1, trait2, isFemale); 
         index += 2; 
@@ -190,9 +190,19 @@ function breed(fly1, fly2) {
     let flyChild = new Fly(sex, child, "child");
     console.log(flyChild);
     let phenotype = flyChild.getPhenotype();
-    console.log("pheno: " + phenotype)
+    //console.log("pheno: " + phenotype)
+    
     return flyChild;
     
+}
+
+let flyChildren = new Array();
+function breed100() {
+    for (let i = 0; i < 100; i++) {
+        flyChildren[i] = breed(femaleParent, maleParent);
+    }
+    //console.log(flyChildren)
+    return flyChildren;
 }
 function switchMenu(menuId) {
     let sections = document.getElementsByClassName("screen");
@@ -245,8 +255,8 @@ function confirmParents() {
 
     switchMenu('F1Gen');
     displayChoice();
-    console.log(maleParent);
-    console.log(femaleParent);
+    //console.log(maleParent);
+    //console.log(femaleParent);
     
 }
 
