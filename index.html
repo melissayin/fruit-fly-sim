@@ -17,9 +17,44 @@
         <section id = "customMenu" class = "screen">
             <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
             <h3>custom menu</h3>
-            <input type = "button" value = "Toggle Allele Key" id = "keyButton" onclick = "toggleAllele()">
-         
-            <div id = "alleleKey"></div>
+            <input type = "button" value = "Toggle Allele Key" id = "keyButton" onclick = "togglePassword('alleleKey')">
+            <input type = "button" value = "Information" id = "customInfo" onclick = "toggleCustomInfo()"> 
+            <br>
+            <br>
+            <input type = "button" value = "Choose traits" id = "chooseTraits" onclick = "chooseTraits()">
+            <input type = "button" value = "Choose alleles" id = "chooseAlleles" onclick = "togglePassword('chooseAlleles')"> 
+            <br>
+            <div id = "allelePassword" style = "display: none;">
+                Enter Password: <input type = "text"  id = "passwordInput">
+                <input type = "button" value = "Submit" id = "submit" onclick = "submitPassword()">
+                <input type = "button" value = "Close" id = "close" onclick = "togglePassword(null)">
+            </div>     
+            <div id = "simMessage"></div>
+
+            <div id = "alleleKey" style = "display: none;">
+                <table>
+                <tr>
+                    <td>D</td>
+                    <td>Wild body color (Autosomal Dominant)</td>
+                </tr>
+                <tr>
+                    <td>d</td>
+                    <td>Brown body color (Autosomal Recessive)</td>
+                </tr>
+                <tr>
+                    <td>L</td>
+                    <td>Wild eyes (X-Linked Incomplete Dominance)</td>
+                </tr>
+                <tr>
+                    <td>S</td>
+                    <td>Small eyes (X-Linked Incomplete Dominance)</td>
+                </tr>
+                <tr>
+                    <td>LS</td>
+                    <td>Round eyes (X-Linked Incomplete Dominance)</td>
+                </tr>
+                </table>
+            </div>
             
             <div id = "currCustom"></div>
             
@@ -87,8 +122,8 @@
             
         </section>
 
-        <section id = "F1Gen" class = "screen">
-            <h1>F1 generation</h1>
+        <section id = "Lab" class = "screen">
+            <h1>Lab</h1>
             <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
             <p>Male Fly:</p>
             <div id = "maleF1"></div>

@@ -195,7 +195,7 @@ function breed(fly1, fly2) {
     return flyChild;
     
 }
-
+let currFly = document.getElementById('flyDisplay').innerHTML;
 let flyChildren = new Array();
 function breed100() {
     for (let i = 0; i < 100; i++) {
@@ -204,6 +204,31 @@ function breed100() {
     //console.log(flyChildren)
     return flyChildren;
 }
+
+let savedFlies = new Array();
+
+function saveFly() {
+   savedFlies.push(currFly);
+
+}
+
+function disposeFly(isSaved) {
+    if (isSaved) {
+        for (let i = 0; i < savedFlies.length; i++) {
+            if (savedFlies[i] == currFly) {
+                savedFlies.splice(i, 1);
+            }
+        }
+    }
+    else {
+        for (let i = 0; i < flyChildren.length; i++) {
+            if (flyChildren[i] == currFly) {
+                flyChildren.splice(i, 1);
+            }
+        }
+    }
+
+}
 function switchMenu(menuId) {
     let sections = document.getElementsByClassName("screen");
     for (var i = 0; i < sections.length; i++) {
@@ -211,7 +236,7 @@ function switchMenu(menuId) {
     }
    
     let sectionToShow = document.getElementById(menuId);
-    if (sectionToShow == 'F1Gen') {
+    if (sectionToShow == 'Lab') {
         document.getElementById('maleF1').innerHTML = document.getElementById('maleFly').innerHTML;
         document.getElementById('femaleF1').innerHTML = document.getElementById('femaleFly').innerHTML;
         console.log("happened")
@@ -260,36 +285,75 @@ function confirmParents() {
     
 }
 
-function toggleAllele() {
-    let key = `<table>
-                <tr>
-                    <td>D</td>
-                    <td>Wild body color (Autosomal Dominant)</td>
-                </tr>
-                <tr>
-                    <td>d</td>
-                    <td>Brown body color (Autosomal Recessive)</td>
-                </tr>
-                <tr>
-                    <td>L</td>
-                    <td>Wild eyes (X-Linked Incomplete Dominance)</td>
-                </tr>
-                <tr>
-                    <td>S</td>
-                    <td>Small eyes (X-Linked Incomplete Dominance)</td>
-                </tr>
-                <tr>
-                    <td>LS</td>
-                    <td>Round eyes (X-Linked Incomplete Dominance)</td>
-                </tr>
-                
-            </table>`
+let password = "password";
+let hasAccess = false; 
+let pending = "";
 
-    if (document.getElementById('alleleKey').innerHTML != "") {
-        document.getElementById('alleleKey').innerHTML = "";
+function submitPassword() {
+    document.getElementById('simMessage').innerHTML = "";
+    let input = document.getElementById('passwordInput').value;
+    if (input == password) {
+        hasAccess = true;
+        document.getElementById('allelePassword').style.display = "none";
+        getAction(pending);
     }
     else {
-        document.getElementById('alleleKey').innerHTML = key;
+        document.getElementById('simMessage').innerHTML = "Incorrect Password";
     }
+
+    
 }
+
+function togglePassword(action) {
+    pending = action;
+    if (!hasAccess) {
+        if (document.getElementById('allelePassword').style.display == "none") {
+        document.getElementById('allelePassword').style.display = "block";
+        }
+        else {
+            document.getElementById('allelePassword').style.display = "none";
+            document.getElementById('simMessage').innerHTML = "";
+        }
+    }
+    else {
+        getAction(pending);
+    }
+
+}
+
+
+function toggleAlleleKey() {
+
+    if (hasAccess) {
+        
+        if (document.getElementById('alleleKey').style.display == "none") {
+            document.getElementById('alleleKey').style.display = "block";
+        }
+        else {
+            document.getElementById('alleleKey').style.display = "none";
+        }
+
+    }
+
+}
+
+function toggleCustomInfo() {
+
+}
+
+function chooseAlleles() {
+
+}
+
+function getAction(action) {
+    if (action == "alleleKey") {
+        toggleAlleleKey();
+    }
+    else if (action == "chooseAlleles") {
+        chooseAlleles();
+    }
+
+}
+ 
+
 
