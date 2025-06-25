@@ -6,7 +6,7 @@ X linked recessive (scallopped wings)
 auto recess (vestigial wings)
 X linked recess (forked bristles)
 auto recess (shaven bristles)
-Y linked (hairy antennae* not accurate)
+Y linked recessive(hairy antennae* not accurate)
 
 ditch:
 eye color complete (eye color)
@@ -24,9 +24,9 @@ class Fly {
         this.scallop = alleles.substring(4, 6);
         // G/g
         this.vestigial = alleles.substring(6, 8);
-        // F/f
+        // R/r
         this.forked = alleles.substring(8, 10);
-        // S/s
+        // H/h
         this.shaven = alleles.substring(10, 12);
         // E/e
         this.hairy = alleles.substring(12, 14);
@@ -48,10 +48,10 @@ class Fly {
             phenos[0] = "wild";
         }
         else if (this.eyes == "LS") {
-            phenos[0] = "round";
+            phenos[0] = "lobe";
         }
         else if (this.eyes == "SS" || this.eyes == "SY") {
-            phenos[0] = "small";
+            phenos[0] = "bar";
         }
 
         // body 
@@ -71,7 +71,7 @@ class Fly {
         }
 
         // vestigial wings 
-        if (this.vestigial == "vv") {
+        if (this.vestigial == "gg") {
             phenos[3] = "vestigial";
         }
         else {
@@ -79,14 +79,14 @@ class Fly {
         }
 
         // bristles 
-        if (this.forked == "ff" || this.forked == "fY") {
+        if (this.forked == "rr" || this.forked == "rY") {
             phenos[4] = "forked";
         }
         else {
             phenos[4] = "wild";
         }
 
-        if (this.shaven == "ss") {
+        if (this.shaven == "hh") {
             phenos[5] = "shaven";
         }
         else {
@@ -285,6 +285,16 @@ function confirmParents() {
     
 }
 
+function confirmCustom(isFemale) {
+    if (isFemale) {  
+        document.getElementById('alleleMenuFemale').style.display = "none";
+        document.getElementById('alleleMenuMale').style.display = "block";
+    }
+    else {
+
+    }
+}
+
 let password = "password";
 let hasAccess = false; 
 let pending = "";
@@ -338,10 +348,18 @@ function toggleAlleleKey() {
 }
 
 function toggleCustomInfo() {
+    if (document.getElementById('infoDiv').style.display == "none") {
+            document.getElementById('infoDiv').style.display = "block";
+    }
+    else {
+        document.getElementById('infoDiv').style.display = "none";
+    }
 
 }
 
 function chooseAlleles() {
+    document.getElementById('alleleMenuFemale').style.display = "block";
+
 
 }
 

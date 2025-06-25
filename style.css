@@ -18,4 +18,9 @@ table {
   th {
     background-color: #f2f2f2;
   }
+
+  .alleleDropdown {
+    font-size: 18px;
+    padding: 5px;
+  }
   
