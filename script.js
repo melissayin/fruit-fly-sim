@@ -286,13 +286,37 @@ function confirmParents() {
 }
 
 function confirmCustom(isFemale) {
+
     if (isFemale) {  
         document.getElementById('alleleMenuFemale').style.display = "none";
         document.getElementById('alleleMenuMale').style.display = "block";
-    }
-    else {
+        let allAlleles = document.getElementById('eyeAlleles').value
+        + document.getElementById('bodyAlleles').value
+        + document.getElementById('scalloppedAlleles').value
+        + document.getElementById('vestigialAlleles').value
+        + document.getElementById('forkedAlleles').value
+        + document.getElementById('shavenAlleles').value
+        + document.getElementById('antAlleles').value;
+        femaleParent = new Fly('F', allAlleles, "customFemale");
+        //console.log(femaleParent);
 
     }
+    else {
+        document.getElementById('alleleMenuMale').style.display = "none";
+        let allAlleles = document.getElementById('eyeAllelesM').value
+        + document.getElementById('bodyAllelesM').value
+        + document.getElementById('scalloppedAllelesM').value
+        + document.getElementById('vestigialAllelesM').value
+        + document.getElementById('forkedAllelesM').value
+        + document.getElementById('shavenAllelesM').value
+        + document.getElementById('antAllelesM').value;
+        maleParent = new Fly('M', allAlleles, "customMale");
+        //console.log(maleParent);
+
+    }
+
+    
+    
 }
 
 let password = "password";
