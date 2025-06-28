@@ -101,13 +101,74 @@
             </div>
 
             <div id = "currCustom"></div>
-           
-            
-            <div id = "alleleMenuFemale" style = "display: none;">
-                Choose Female Fly: 
+            <div id = "traits">
+                Choose desired traits below (random genotype)
+                Female Fly: 
                 <table>
                     <tr>
-                        <td>Eye Color</td>
+                        <td>
+                            Eye Shape
+                        </td>
+                        <td>
+                            <select id = "eyeTraits" class = "alleleDropdown">
+                                <option value = "LL">Wild</option>
+                                <option value = "LS">Bar</option>
+                                <option value = "SS">Lobe</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Body Color
+                        </td>
+                        <td>
+                            <select id = "bodyTraits" class = "alleleDropdown">
+                                <option value = "BBbb">Wild</option>
+                                <option value = "bb">Brown</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Scallopped Wings
+                        </td>
+                        <td>
+                            <select id = "scalloppedTraits" class = "alleleDropdown">
+                                <option value = "dd">Yes</option>
+                                <option value = "DDDd">No</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Vestigial Wings
+                        </td>
+                        <td>
+                            <select id = "vestigialTraits" class = "alleleDropdown">
+                                <option value = "gg">Yes</option>
+                                <option value = "GGGg">No</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Forked Bristles
+                        </td>
+                        <td>
+                            <select id = "forkedTraits" class = "alleleDropdown">
+                                <option value = "LL">Yes</option>
+                                <option value = "LS">No</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+            
+            <div id = "alleleMenuFemale" style = "display: none;">
+                Choose female fly alleles: 
+                <table>
+                    <tr>
+                        <td>Eye Shape</td>
                         <td>
                             <select id = "eyeAlleles" class = "alleleDropdown">
                                 <option value = "LL">XᴸXᴸ (wild F)</option>
@@ -180,7 +241,7 @@
             </div>
 
             <div id = "alleleMenuMale" style = "display: none;">
-                Choose Male Fly:  
+                Choose male fly alleles:  
                 <table>
                     <tr>
                         <td>Eye Color</td>
@@ -253,6 +314,7 @@
                 <input type = "button" id = "confirmCustomMale" value = "Confirm Male" onclick = confirmCustom(false)>
             </div>
             
+            <input type = "button" id = "customToLab" value = "Go to Lab" onclick = "switchMenu('Lab')">
             
             
         </section>
