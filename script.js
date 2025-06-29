@@ -10,7 +10,6 @@ Y linked recessive(hairy antennae* not accurate)
 
 ditch:
 eye color complete (eye color)
-codom (blood* they don't actually have blood)
 */
 class Fly {
     constructor(sex, alleles, name) {
