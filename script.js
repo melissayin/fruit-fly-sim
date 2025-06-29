@@ -284,7 +284,7 @@ function confirmParents() {
     
 }
 
-function confirmCustom(isFemale) {
+function confirmCustomAlleles(isFemale) {
 
     if (isFemale) {  
         document.getElementById('alleleMenuFemale').style.display = "none";
@@ -298,6 +298,8 @@ function confirmCustom(isFemale) {
         + document.getElementById('antAlleles').value;
         femaleParent = new Fly('F', allAlleles, "customFemale");
         //console.log(femaleParent);
+        document.getElementById("alleleMenuFemale").style.display = "none";
+        document.getElementById("alleleMenuMale").style.display = "block";
 
     }
     else {
@@ -311,11 +313,71 @@ function confirmCustom(isFemale) {
         + document.getElementById('antAllelesM').value;
         maleParent = new Fly('M', allAlleles, "customMale");
         //console.log(maleParent);
+        
+        document.getElementById("alleleMenuMale").style.display = "none";
+        switchMenu("Lab");
 
     }
 
     
     
+}
+
+function getEvenNumber(min, max) {
+    let even = Math.floor(Math.random() * ((max - min) / 2 + 1)) * 2 + min;
+    return even;
+}
+
+function getRandomPair(alleles) {
+    let index = getEvenNumber(0, alleles.length - 2   );
+    let pair = alleles[index] + alleles[index + 1];
+    return pair; 
+
+}
+
+function confirmCustomTraits(isFemale) {
+    let alleles = "";
+    if (isFemale) {
+        alleles += document.getElementById("eyeTraits").value;
+        let bodyTraits = document.getElementById("bodyTraits").value;
+        console.log(bodyTraits);
+        alleles += getRandomPair(bodyTraits);
+        console.log(alleles);
+        let scalloppedTraits = document.getElementById("scalloppedTraits").value;
+        alleles += getRandomPair(scalloppedTraits);
+        let vestigialTraits = document.getElementById("vestigialTraits").value;
+        alleles += getRandomPair(vestigialTraits);
+        let forkedTraits = document.getElementById("forkedTraits").value;
+        alleles += getRandomPair(forkedTraits);
+        let shavenTraits = document.getElementById("shavenTraits").value;
+        alleles += getRandomPair(forkedTraits);
+        alleles += "XX";
+
+        femaleParent = new Fly('F', alleles, "traitFemale");
+        console.log(femaleParent);
+        document.getElementById("femaleTraits").style.display = "none";
+        document.getElementById("maleTraits").style.display = "block";
+
+    }
+    else {
+        alleles += document.getElementById("eyeTraits").value;
+        let bodyTraits = document.getElementById("bodyTraitsMale").value;
+        alleles += getRandomPair(bodyTraits);
+        alleles +=  document.getElementById("scalloppedTraits").value;
+        let vestigialTraits = document.getElementById("vestigialTraitsMale").value;
+        alleles += getRandomPair(vestigialTraits);
+        alleles += document.getElementById("forkedTraitsMale").value;
+        alleles += document.getElementById("shavenTraitsMale").value;
+        alleles += document.getElementById("hairyTraitsMale").value;
+
+        maleParent = new Fly('M', alleles, "traitMale");
+        console.log(maleParent);
+        document.getElementById("maleTraits").style.display = "none";
+        switchMenu("Lab");
+    
+    }
+
+
 }
 
 let password = "password";
@@ -384,6 +446,10 @@ function chooseAlleles() {
     document.getElementById('alleleMenuFemale').style.display = "block";
 
 
+}
+
+function chooseTraits() {
+    document.getElementById('femaleTraits').style.display = "block";
 }
 
 function getAction(action) {

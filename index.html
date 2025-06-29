@@ -101,7 +101,7 @@
             </div>
 
             <div id = "currCustom"></div>
-            <div id = "femaleTraits">
+            <div id = "femaleTraits" style = "display: none;">
                 Choose desired traits below (random genotype)
                 Female Fly: 
                 <table>
@@ -173,9 +173,11 @@
                         </td>
                     </tr>
                 </table>
+
+                <input type = "button" id = "confirmFemaleTraits" value = "Confirm Female" onclick = confirmCustomTraits(true)>
             </div>
 
-            <div id = "maleTraits">
+            <div id = "maleTraits" style = "display: none;">
                 Choose desired traits below (random genotype)
                 Male Fly: 
                 <table>
@@ -184,7 +186,7 @@
                             Eye Shape
                         </td>
                         <td>
-                            <select id = "eyeTraits" class = "alleleDropdown">
+                            <select id = "eyeTraitsMale" class = "alleleDropdown">
                                 <option value = "LY">Wild</option>
                                 <option value = "SY">Lobe</option>
                             </select>
@@ -195,7 +197,7 @@
                             Body Color
                         </td>
                         <td>
-                            <select id = "bodyTraits" class = "alleleDropdown">
+                            <select id = "bodyTraitsMale" class = "alleleDropdown">
                                 <option value = "BBBb">Wild</option>
                                 <option value = "bb">Brown</option>
                             </select>
@@ -206,7 +208,7 @@
                             Scallopped Wings
                         </td>
                         <td>
-                            <select id = "scalloppedTraits" class = "alleleDropdown">
+                            <select id = "scalloppedTraitsMale" class = "alleleDropdown">
                                 <option value = "dY">Yes</option>
                                 <option value = "DY">No</option>
                             </select>
@@ -217,7 +219,7 @@
                             Vestigial Wings
                         </td>
                         <td>
-                            <select id = "vestigialTraits" class = "alleleDropdown">
+                            <select id = "vestigialTraitsMale" class = "alleleDropdown">
                                 <option value = "gg">Yes</option>
                                 <option value = "GGGg">No</option>
                             </select>
@@ -228,7 +230,7 @@
                             Forked Bristles
                         </td>
                         <td>
-                            <select id = "forkedTraits" class = "alleleDropdown">
+                            <select id = "forkedTraitsMale" class = "alleleDropdown">
                                 <option value = "rY">Yes</option>
                                 <option value = "RY">No</option>
                             </select>
@@ -239,7 +241,7 @@
                             Shaven Bristles
                         </td>
                         <td>
-                            <select id = "shavenTraits" class = "alleleDropdown">
+                            <select id = "shavenTraitsMale" class = "alleleDropdown">
                                 <option value = "hh">Yes</option>
                                 <option value = "HHHh">No</option>
                             </select>
@@ -250,13 +252,15 @@
                             Hairy Antennae
                         </td>
                         <td>
-                            <select id = "forkedTraits" class = "alleleDropdown">
+                            <select id = "hairyTraitsMale" class = "alleleDropdown">
                                 <option value = "Xe">Yes</option>
                                 <option value = "XY">No</option>
                             </select>
                         </td>
                     </tr>
                 </table>
+
+                <input type = "button" id = "confirmMaleTraits" value = "Confirm Male" onclick = confirmCustomTraits(false)>
             </div>
             
             
@@ -333,7 +337,7 @@
                 </tr>
                 </table>
 
-                <input type = "button" id = "confirmCustomFemale" value = "Confirm Female" onclick = confirmCustom(true)>
+                <input type = "button" id = "confirmCustomFemale" value = "Confirm Female" onclick = confirmCustomAlleles(true)>
             </div>
 
             <div id = "alleleMenuMale" style = "display: none;">
