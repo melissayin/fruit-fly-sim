@@ -23,4 +23,19 @@ table {
     font-size: 18px;
     padding: 5px;
   }
+
+  .fly-image-container {
+    position: relative;
+    width: 504px;
+    height: 567px;
+    margin: auto;
+}
+
+.fly-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 504px;
+    height: 567px;
+}
   

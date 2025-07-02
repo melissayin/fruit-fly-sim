@@ -33,6 +33,10 @@ class Fly {
         this.name = name;
     }
 
+    getSex() {
+        return this.sex;
+    }
+ 
     getAlleles() {
         //console.log("ALLELES: " + this.alleles);
         return this.alleles;
@@ -44,7 +48,7 @@ class Fly {
         let phenos = [];
         // eyes 
         if (this.eyes == "LL" || this.eyes == "LY") {
-            phenos[0] = "wild";
+            phenos[0] = "wildeyes";
         }
         else if (this.eyes == "LS") {
             phenos[0] = "lobe";
@@ -63,10 +67,10 @@ class Fly {
 
         // scallopped wings
         if (this.scallop == "dd" || this.scallop == "dY") {
-            phenos[2] = "scalloped";
+            phenos[2] = "scallopped";
         } 
         else {
-            phenos[2] = "wild";
+            phenos[2] = "wildwing";
         }
 
         // vestigial wings 
@@ -74,7 +78,7 @@ class Fly {
             phenos[3] = "vestigial";
         }
         else {
-            phenos[3] = "wild";
+            phenos[3] = "wildwing";
         }
 
         // bristles 
@@ -82,14 +86,14 @@ class Fly {
             phenos[4] = "forked";
         }
         else {
-            phenos[4] = "wild";
+            phenos[4] = "wildbris";
         }
 
         if (this.shaven == "hh") {
             phenos[5] = "shaven";
         }
         else {
-            phenos[5] = "wild";
+            phenos[5] = "wildbris";
         }
 
         // antennae
@@ -97,7 +101,7 @@ class Fly {
             phenos[6] = "hairy";
         }
         else {
-            phenos[6] = "wild";
+            phenos[6] = "wildant";
         }
 
         return phenos;
@@ -105,6 +109,30 @@ class Fly {
     }
 
 }
+
+const imageMap = new Map();
+imageMap.set("wildeyes", "images/wildeyes.png");
+imageMap.set("lobe", "images/lobeeyes.png");
+imageMap.set("bar", "images/bareyes.png");
+// need do abdomen, legs , shell
+
+imageMap.set("wild", "images/wildheadbod.png");
+imageMap.set("brown", "images/brownheadbod.png");
+
+//  add right wing
+imageMap.set("scalloppedwildwing", "images/scallopped");
+imageMap.set("wildwingwildwing", "images/wildwing");
+imageMap.set("wildwingvestigial", "images/vestigial");
+imageMap.set("scalloppedvestigial", "images/scalloppedvestigial");
+
+imageMap.set("forkedwildbris", "images/forkedbristles.png");
+imageMap.set("forkedshaven", "images/forkedshavenbristles.png");
+imageMap.set("wildbrisshaven", "images/shavenbristles.png");
+imageMap.set("wildbriswildbris", "images/wildbristles.png");
+
+imageMap.set("hairy", "images/hairyantennae.png");
+imageMap.set("wildant", "images/wildantennae.png");
+
 
 let maleParent;
 let femaleParent;
@@ -194,24 +222,40 @@ function breed(fly1, fly2) {
     return flyChild;
     
 }
-let currFly = document.getElementById('flyDisplay').innerHTML;
+let currFly = null;
+let flyIndex = 0;
 let flyChildren = new Array();
 function breed100() {
     for (let i = 0; i < 100; i++) {
         flyChildren[i] = breed(femaleParent, maleParent);
     }
     //console.log(flyChildren)
+    currFly = flyChildren[0]; 
+    console.log("current fly" + currFly);
+    //document.getElementById("flyDisplay").innerHTML = currentFly.name + ": " + currentFly.getPhenotype().join(", ");
     return flyChildren;
 }
 
-let savedFlies = new Array();
+let savedFlies = new Array(Fly);
 
 function saveFly() {
    savedFlies.push(currFly);
+   flyIndex++;
+   let container = document.getElementById('flyImage');
+    container.innerHTML = "";
+
+   console.log(savedFlies);
 
 }
 
+
 function disposeFly(isSaved) {
+    flyIndex++;
+    currFly = flyChildren[flyIndex];
+    let container = document.getElementById('flyImage');
+    container.innerHTML = "";
+    /*
+
     if (isSaved) {
         for (let i = 0; i < savedFlies.length; i++) {
             if (savedFlies[i] == currFly) {
@@ -226,8 +270,170 @@ function disposeFly(isSaved) {
             }
         }
     }
+        */
 
 }
+
+function displayFly(fly) {
+    console.log(fly);
+    let container = document.getElementById('flyImage');
+    container.innerHTML = ""; // clear old images
+    /*
+    layer order bottom -> top
+    legs
+    abdomen
+    antennae
+    body
+    wings
+    shell
+    eyes
+    bristles
+    */
+
+    let phenos = fly.getPhenotype();
+    let sex = fly.getSex();
+
+    // establish body color 
+    let isBrown = false;
+    
+    if (phenos[1] == "brown") {
+        isBrown = true;
+    }
+    
+    // legs 
+    let legDirections = ["frontleft", "frontright", "midleft", "midright", "backleft", "backright"];
+    for (let i = 0; i < legDirections.length; i++) {
+        const leg = document.createElement("img");
+        leg.src = "images/" + phenos[1] + legDirections[i] + ".png";
+        leg.className = "fly-layer";
+        leg.alt = "leg";
+        container.appendChild(leg);
+    }
+
+
+    // abdomen
+    if (isBrown) {
+        if (sex == 'F') {
+            // display brown female ab
+            const flyab = document.createElement("img");
+            flyab.src = "images/brownfemale.png";
+            flyab.className = "fly-layer";
+            flyab.alt = "brown female fly abdomen";
+            container.appendChild(flyab);
+        }
+        else {
+            // display brown male ab
+            const flyab = document.createElement("img");
+            flyab.src = "images/brownmale.png";
+            flyab.className = "fly-layer";
+            flyab.alt = "brown male fly abdomen";
+            container.appendChild(flyab);
+        }
+    }
+    else {
+        if (sex == 'F') {
+            // display wild f ab
+            const flyab = document.createElement("img");
+            flyab.src = "images/wildfemale.png";
+            flyab.className = "fly-layer";
+            flyab.alt = "wild female fly abdomen";
+            container.appendChild(flyab);
+        }
+        else {
+            // wild male ab
+            const flyab = document.createElement("img");
+            flyab.src = "images/wildmale.png";
+            flyab.className = "fly-layer";
+            flyab.alt = "wild male fly abdomen";
+            container.appendChild(flyab);
+        }
+    }
+    
+    // display antennae, use phenos[6]
+    const flyant = document.createElement("img");
+    flyant.src = imageMap.get(phenos[6]);
+    flyant.className = "fly-layer";
+    flyant.alt = "fly antennae";
+    container.appendChild(flyant);
+
+    //body 
+    // head and body
+    if (isBrown) {
+        const flybody = document.createElement("img");
+        flybody.src = imageMap.get("brown");
+        flybody.className = "fly-layer";
+        flybody.alt = "brown fly body";
+        container.appendChild(flybody);
+
+    }
+    else {
+        // wildheadbod 
+        const flybody = document.createElement("img");
+        flybody.src = imageMap.get("wild");
+        flybody.className = "fly-layer";
+        flybody.alt = "wild fly body";
+        container.appendChild(flybody);
+    }
+
+    // wings
+    let wingType = "";
+    wingType += phenos[2] + phenos[3];
+    console.log(wingType);
+    // display wings
+    let source = "";
+    source += imageMap.get(wingType) + "left.png";
+    console.log(source)
+    console.log(imageMap.get(wingType))
+    const wingL = document.createElement("img");
+    wingL.src = source;
+    wingL.className = "fly-layer";
+    wingL.alt = "left wing";
+    container.appendChild(wingL);
+
+    const wingR = document.createElement("img");
+    wingR.src = imageMap.get(wingType) + "right.png";
+    wingR.className = "fly-layer";
+    wingR.alt = "right wing";
+    container.appendChild(wingR);
+
+    // shell
+    if (isBrown) {
+        // brwn shell
+        const shell = document.createElement("img");
+        shell.src = "images/brownshell.png";
+        shell.className = "fly-layer";
+        shell.alt = "brown shell";
+        container.appendChild(shell);
+        
+    }
+    else {
+        // wild shell 
+        const shell = document.createElement("img");
+        shell.src = "images/wildshell.png";
+        shell.className = "fly-layer";
+        shell.alt = "wild shell";
+        container.appendChild(shell);
+    }
+
+    //eyes
+    const eyes = document.createElement("img");
+    eyes.src = imageMap.get(phenos[0]);
+    eyes.className = "fly-layer";
+    eyes.alt = "eyes";
+    container.appendChild(eyes);
+
+
+    let bristleType = phenos[4] + phenos[5];
+    // display bris
+    const flybris = document.createElement("img");
+    flybris.src = imageMap.get(bristleType);
+    flybris.className = "fly-layer";
+    flybris.alt = "bristles";
+    container.appendChild(flybris);
+    
+
+}
+
 function switchMenu(menuId) {
     let sections = document.getElementsByClassName("screen");
     for (var i = 0; i < sections.length; i++) {
@@ -240,7 +446,8 @@ function switchMenu(menuId) {
         document.getElementById('femaleF1').innerHTML = document.getElementById('femaleFly').innerHTML;
         console.log("happened")
     }
-    sectionToShow.style.display = "block";
+    
+    document.getElementById(menuId).style.display = "block";
     
 
 }
@@ -277,7 +484,7 @@ function confirmParents() {
         //console.log("fparent" + document.getElementById('femaleChoices').value);
     }
 
-    switchMenu('F1Gen');
+    switchMenu("Lab");
     displayChoice();
     //console.log(maleParent);
     //console.log(femaleParent);

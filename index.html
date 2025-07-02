@@ -490,9 +490,9 @@
             <p>Female Fly:</p>
             <div id = "femaleF1"></div>
             <br>
-            <input type = "button" value = "Breed" id = "breed" onclick = "breed100()"> <input type = "button" value = "Inspect Fly" id = "inspect">
-            <div id = "flyDisplay"></div>
-            <input type = "button" value = "Save Fly" onclick = "saveFly()">
+            <input type = "button" value = "Breed" id = "breed" onclick = "breed100()"> <input type = "button" value = "Inspect Fly" id = "inspect" onclick = displayFly(currFly)>
+            <div id = "flyImage" class="fly-image-container"></div>
+            <input type = "button" value = "Save Fly" onclick = "saveFly()"> <input type = "button" value = "Dispose Fly" onclick = "disposeFly()">
         </section> 
        
         <script src="script.js"></script>
