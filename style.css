@@ -3,21 +3,22 @@ body {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-size: medium;
 }
+
+
 table {
     width: 50%;
     border-collapse: collapse;
+    margin-bottom: 0px;
     margin-left: auto;
     margin-right: auto;
     align-content: center;
   }
 
   th, td {
-    padding: 8px;
+    margin-left: 50px;
     text-align: center;
   }
-  th {
-    background-color: #f2f2f2;
-  }
+  
 
   .alleleDropdown {
     font-size: 18px;
@@ -37,5 +38,23 @@ table {
     left: 0;
     width: 504px;
     height: 567px;
+}
+.jarSection {
+  display: flex;
+  gap: 40px; /* space between jars */
+  justify-content: center; /* centers them horizontally */
+  align-items: flex-start; /* keeps tops aligned */
+  margin-top: 20px;
+}
+
+#parentJarContainer, #savedJarContainer {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+.jar {
+  width: 300px;
+  height: 300px;
 }
   

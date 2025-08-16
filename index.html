@@ -8,9 +8,12 @@
     </head>
     <body onload = "switchMenu('homescreen')">
         <section id = "homescreen" class = "screen">
+            <br>
             <h1>Fruit Fly Genetics Simulator</h1>
             <p>Simulate fruit fly breeding and observe resulting patterns</p>
+            <br>
             <input type = "button" value = "Use custom parents" id = "chooseCustom" onclick = "switchMenu('customMenu')">
+            &nbsp;&nbsp;&nbsp;
             <input type = "button" value = "Use preset parents" id = "choosePreset" onclick = "switchMenu('presetMenu')">
         </section>
 
@@ -484,14 +487,44 @@
         <section id = "Lab" class = "screen">
             <h1>Lab</h1>
             <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
-            <p>Male Fly:</p>
-            <div id = "maleF1"></div>
             <br>
-            <p>Female Fly:</p>
-            <div id = "femaleF1"></div>
+            <table>
+                <tr>
+                    <th>
+                        <div id="parentJarContainer">
+                            <img id="parentJar" src="images/flyjar.png" alt="jar" class = "jar">
+                            <div id="parentFlies"></div>
+                        </div>  
+                    </th>
+                    <th>
+                         <div id="savedJarContainer">
+                            <img id="savedJar" src="images/flyjar.png" alt="jar" class = "jar">
+                            <div id="savedFlyArea"></div>
+                        </div>
+                    </th>
+                    <th>
+                        <div id = "flyImage" class="fly-image-container"></div>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <p>Parent Flies</p> 
+                    </th>
+                    <th>
+                        <p>Saved Flies</p>
+                    </th>
+                    <th>
+                        <p>Fly CLoseup</p>
+                    </th>
+                </tr>
+               
+
+            </table>
+            
+
             <br>
             <input type = "button" value = "Breed" id = "breed" onclick = "breed100()"> <input type = "button" value = "Inspect Fly" id = "inspect" onclick = displayFly(currFly)>
-            <div id = "flyImage" class="fly-image-container"></div>
+            
             <input type = "button" value = "Save Fly" onclick = "saveFly()"> <input type = "button" value = "Dispose Fly" onclick = "disposeFly()">
         </section> 
        
