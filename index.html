@@ -510,12 +510,14 @@
                 <tr>
                     <th>
                         <p>Parent Flies</p> 
+                        <input type = "button" value = "Breed Parents" id = "breedPar" onclick = "breed100(parentFlies[0], parentFlies[1])">
+
                     </th>
                     <th>
                         <p>Saved Flies</p>
                     </th>
                     <th>
-                        <p>Fly CLoseup</p>
+                        <p>Fly Closeup</p>
                     </th>
                 </tr>
                 <!-- Zoom Modal -->
@@ -525,11 +527,13 @@
 
             </table>
             
-
             <br>
-            <input type = "button" value = "Breed" id = "breed" onclick = "breed100()"> <input type = "button" value = "Inspect Fly" id = "inspect" onclick = displayFly(currFly)>
+            <div id = "errorMessage">
+
+            </div>
+            <input type = "button" value = "Breed" id = "breed" onclick = "breed100(femaleParent, maleParent)"> <input type = "button" value = "Inspect Fly" id = "inspect" onclick = "displayFly(currFly, document.getElementById('flyImage'))">
             
-            <input type = "button" value = "Save Fly" onclick = "saveFly()"> <input type = "button" value = "Dispose Fly" onclick = "disposeFly()">
+            <input type = "button" value = "Save Fly" onclick = "saveFly()"> <input type = "button" value = "Dispose Fly" onclick = "nextFly()">
         </section> 
        
         <script src="script.js"></script>

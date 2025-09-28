@@ -156,12 +156,17 @@ table {
 
 .zoom-right {
   flex: 1;
-  min-width: 300px;
-  min-height: 400px;
-  background: #f9f9f9;
+  min-width: 600px;
+  min-height: 600px;
+  background: #611b1b;
   border: 1px solid #ccc;
   border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.fly-preview-container {
+  position: relative;
+  width: 1000px;
+  height: 1000px;
 }
