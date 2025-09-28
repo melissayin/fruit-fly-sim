@@ -236,16 +236,21 @@ function breed100() {
     return flyChildren;
 }
 
-let savedFlies = new Array(Fly);
+let parentJarData = [];
+
+let savedFlies = [];  // holds Fly objects
+let savedJarData = []; // holds icon positions + src
+let selectedFlyIndex = null; // which fly is selected in modal
+
 
 function saveFly() {
-   savedFlies.push(currFly);
-   flyIndex++;
-   let container = document.getElementById('flyImage');
+    savedFlies.push(currFly); 
+    flyIndex++;
+    let container = document.getElementById('flyImage');
     container.innerHTML = "";
-
-   console.log(savedFlies);
-
+    
+    addIconToJar("savedFlyArea", savedJarData, "images/wildfly.png", 26);
+    console.log(savedFlies);
 }
 
 
@@ -669,5 +674,159 @@ function getAction(action) {
 
 }
  
+/* ------------------ JAR icons + zoom ------------------ */
+
+function addIconToJar(overlayId, dataArr, src = "images/wildfly.png", size = 26) {
+  const area = document.getElementById(overlayId);
+  if (!area) return false;
+
+  const w = area.clientWidth;
+  const h = area.clientHeight;
+  const pad = 60;                
+  const minDist = size * 0.7;   
+  const maxAttempts = 120;
+
+  for (let attempt = 0; attempt < maxAttempts; attempt++) {
+    const x = Math.random() * (w - size - pad * 2) + pad;
+    const y = Math.random() * (h - size - pad * 2) + pad;
+
+    let ok = true;
+    for (const f of dataArr) {
+      const dx = f.x - x, dy = f.y - y;
+      if (Math.hypot(dx, dy) < minDist) { ok = false; break; }
+    }
+    if (!ok) continue;
+
+    const img = new Image(size, size);
+    img.src = src;
+    img.className = "fly-icon";
+    img.style.left = x + "px";
+    img.style.top  = y + "px";
+
+    area.appendChild(img);
+    dataArr.push({ x, y, src });
+    return true;
+  }
+  return false; 
+}
 
 
+function showZoomFrom(dataArr, flyArr) {
+  const modal = document.getElementById("zoomModal");
+  const content = document.getElementById("zoomContent");
+  content.innerHTML = "";
+
+  const layout = document.createElement("div");
+  layout.className = "zoom-layout";
+
+  // left side = fly thumbnails
+  const left = document.createElement("div");
+  left.className = "zoom-left";
+
+  dataArr.forEach((f, i) => {
+    const img = new Image(96, 96);
+    img.src = f.src;
+    img.className = "fly-thumb";
+    if (i === selectedFlyIndex) img.classList.add("selected-fly");
+
+    img.onclick = () => {
+      selectedFlyIndex = i;
+      showZoomFrom(dataArr, flyArr); 
+    };
+
+    left.appendChild(img);
+  });
+
+  // right side = inspect preview
+  const right = document.createElement("div");
+  right.className = "zoom-right";
+  right.id = "zoomPreview";
+
+  // button bar under thumbnails
+  const menu = document.createElement("div");
+  menu.className = "fly-menu";
+
+  const inspect = document.createElement("button");
+  inspect.textContent = "Inspect";
+  inspect.onclick = () => {
+    if (selectedFlyIndex !== null) {
+      const preview = document.getElementById("zoomPreview");
+      preview.innerHTML = "";
+      displayFlyInContainer(flyArr[selectedFlyIndex], preview);
+    }
+  };
+
+  const dispose = document.createElement("button");
+  dispose.textContent = "Dispose";
+  dispose.onclick = () => {
+    if (selectedFlyIndex !== null) {
+      flyArr.splice(selectedFlyIndex,1);
+      dataArr.splice(selectedFlyIndex,1);
+      selectedFlyIndex = null;
+      showZoomFrom(dataArr, flyArr);
+    }
+  };
+
+  const move = document.createElement("button");
+  move.textContent = "Move to Parent";
+  move.onclick = () => {
+    if (selectedFlyIndex !== null) {
+      const f = dataArr[selectedFlyIndex];
+      addIconToJar("parentFlies", parentJarData, f.src, 26);
+      parentJarData.push(f);
+      flyArr.splice(selectedFlyIndex,1);
+      dataArr.splice(selectedFlyIndex,1);
+      selectedFlyIndex = null;
+      showZoomFrom(dataArr, flyArr);
+    }
+  };
+
+  menu.appendChild(inspect);
+  menu.appendChild(dispose);
+  menu.appendChild(move);
+
+  left.appendChild(menu);
+
+  layout.appendChild(left);
+  layout.appendChild(right);
+
+  content.appendChild(layout);
+
+  modal.classList.remove("hidden");
+}
+
+
+
+function hideZoom(e) {
+  // Only close if clicked the dark backdrop (not the white content box)
+  if (e.target.id === "zoomModal") {
+    e.currentTarget.classList.add("hidden");
+  }
+}
+
+
+
+document.addEventListener("DOMContentLoaded", () => {
+  const parentJar = document.getElementById("parentJar");
+  const savedJar  = document.getElementById("savedJar");
+  const modal     = document.getElementById("zoomModal");
+  if (savedJar)
+    savedJar.addEventListener("click", () => showZoomFrom(savedJarData, savedFlies));
+  if (parentJar)
+    parentJar.addEventListener("click", () => showZoomFrom(parentJarData, [])); 
+
+
+  if (modal)     modal.addEventListener("click", hideZoom);
+
+  // Handy testing helpers in the console:
+  window.addParentFly = () => addIconToJar("parentFlies", parentJarData);
+  window.addSavedFly  = () => addIconToJar("savedFlyArea", savedJarData);
+});
+
+function displayFlyInContainer(fly, container) {
+  container.innerHTML = "";
+  let phenos = fly.getPhenotype();
+  let sex = fly.getSex();
+  
+  displayFly(fly); 
+}

@@ -27,8 +27,8 @@ table {
 
   .fly-image-container {
     position: relative;
-    width: 504px;
-    height: 567px;
+    width: 506px;
+    height: 576px;
     margin: auto;
 }
 
@@ -36,14 +36,14 @@ table {
     position: absolute;
     top: 0;
     left: 0;
-    width: 504px;
-    height: 567px;
+    width: 506px;
+    height: 576px;
 }
 .jarSection {
   display: flex;
-  gap: 40px; /* space between jars */
-  justify-content: center; /* centers them horizontally */
-  align-items: flex-start; /* keeps tops aligned */
+  gap: 40px;
+  justify-content: center; 
+  align-items: flex-start;
   margin-top: 20px;
 }
 
@@ -58,3 +58,110 @@ table {
   height: 300px;
 }
   
+
+#parentJarContainer, #savedJarContainer {
+  position: relative;
+  width: 300px;
+  height: 300px;
+}
+
+#parentJar, #savedJar {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 2;         
+}
+
+#parentFlies, #savedFlyArea {
+  position: absolute;
+  inset: 0;
+  z-index: 1;            
+  pointer-events: none;  
+  overflow: hidden;
+
+  
+  clip-path: inset(8% 8% 10% 8% round 12%);
+}
+
+.fly-icon {
+  position: absolute;
+  width: 26px;
+  height: 26px;
+  user-select: none;
+  -webkit-user-drag: none;
+  image-rendering: -webkit-optimize-contrast;
+}
+
+
+/* --- Zoom modal --- */
+#zoomModal.hidden { display: none; }
+
+#zoomModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+#zoomContent {
+  background: #fff;
+  padding: 20px;
+  border-radius: 12px;
+  max-width: min(90vw, 900px);
+  max-height: 80vh;
+  overflow: auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(96px, 1fr));
+  gap: 12px;
+}
+
+#zoomContent img {
+  width: 96px;
+  height: 96px;
+}
+.fly-thumb {
+  cursor: pointer;
+  border: 3px solid transparent;
+  border-radius: 6px;
+}
+
+.fly-thumb.selected-fly {
+  border: 3px solid red;
+}
+
+.fly-menu {
+  grid-column: 1 / -1; 
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.fly-menu button {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+.zoom-layout {
+  display: flex;
+  gap: 20px;
+}
+
+.zoom-left {
+  flex: 1;
+}
+
+.zoom-right {
+  flex: 1;
+  min-width: 300px;
+  min-height: 400px;
+  background: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
