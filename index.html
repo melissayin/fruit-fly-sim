@@ -511,6 +511,7 @@
                     <th>
                         <p>Parent Flies</p> 
                         <input type = "button" value = "Breed Parents" id = "breedPar" onclick = "breed100(parentFlies[0], parentFlies[1])">
+                        <p>*This will replace all current non-saved lab flies*</p>
 
                     </th>
                     <th>
@@ -531,6 +532,7 @@
             <div id = "errorMessage">
 
             </div>
+         
             <input type = "button" value = "Breed" id = "breed" onclick = "breed100(femaleParent, maleParent)"> <input type = "button" value = "Inspect Fly" id = "inspect" onclick = "displayFly(currFly, document.getElementById('flyImage'))">
             
             <input type = "button" value = "Save Fly" onclick = "saveFly()"> <input type = "button" value = "Dispose Fly" onclick = "nextFly()">
