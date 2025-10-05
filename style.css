@@ -188,6 +188,6 @@ table {
   max-height: 100%;
   width: auto;
   height: auto;
-  transform: translate(-50%, -50%) scale(4.5); /* optional scale tweak */
+  transform: translate(-50%, -50%) scale(4); /* optional scale tweak */
   transform-origin: center;
 }
