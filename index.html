@@ -487,6 +487,7 @@
         <section id = "Lab" class = "screen">
             <h1>Lab</h1>
             <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
+            <input type = "button" value = "return to custom menu" id = "returnCustom" onclick = "switchMenu('customMenu')">
             <br>
             <table>
                 <tr>
@@ -536,6 +537,10 @@
             <input type = "button" value = "Breed" id = "breed" onclick = "breed100(femaleParent, maleParent)"> <input type = "button" value = "Inspect Fly" id = "inspect" onclick = "displayFly(currFly, document.getElementById('flyImage'))">
             
             <input type = "button" value = "Save Fly" onclick = "saveFly()"> <input type = "button" value = "Dispose Fly" onclick = "nextFly()">
+            <div id="flyProgressContainer">
+                <div id="flyProgress"></div>
+            </div>
+
         </section> 
        
         <script src="script.js"></script>

@@ -238,6 +238,7 @@ function breed100(femaleParent, maleParent) {
     }
     //console.log(flyChildren)
     currFly = flyChildren[0]; 
+    showBreedProgress(flyChildren.length);
     //console.log("current fly" + currFly);
     //document.getElementById("flyDisplay").innerHTML = currentFly.name + ": " + currentFly.getPhenotype().join(", ");
     return flyChildren;
@@ -252,6 +253,7 @@ let selectedFlyIndex = null; // which fly is selected in modal
 
 function nextFly() {
   flyIndex++;
+  updateBreedProgress(flyIndex);
   if (flyIndex < flyChildren.length) {
     currFly = flyChildren[flyIndex];
   } else {
@@ -883,3 +885,61 @@ document.addEventListener("DOMContentLoaded", () => {
   window.addParentFly = () => addIconToJar("parentFlies", parentJarData);
   window.addSavedFly  = () => addIconToJar("savedFlyArea", savedJarData);
 });
+
+
+function showBreedProgress(totalFlies) {
+  const container = document.getElementById("flyProgressContainer");
+  const progress = document.getElementById("flyProgress");
+  progress.innerHTML = ""; // reset
+  container.classList.remove("hidden");
+
+  // Always show 10 icons for proportional display
+  const iconCount = 10;
+  for (let i = 0; i < iconCount; i++) {
+    const icon = document.createElement("div");
+    icon.className = "fly-progress-icon";
+    // optional fallback: emoji version
+    // icon.textContent = "🪰";
+    progress.appendChild(icon);
+  }
+
+  // Store total for proportional fading
+  progress.dataset.totalFlies = totalFlies;
+}
+
+function updateBreedProgress(currentIndex) {
+  const progress = document.getElementById("flyProgress");
+  const icons = progress.querySelectorAll(".fly-progress-icon");
+  const totalFlies = Number(progress.dataset.totalFlies) || 100;
+  const progressFraction = currentIndex / totalFlies;
+
+  // compute how many icons (from the right) should be gray
+  const iconsToGray = progressFraction * icons.length;
+
+  icons.forEach((icon, i) => {
+    // reversed index: 0 = leftmost, last = rightmost
+    const revIndex = icons.length - 1 - i;
+
+    if (revIndex + 1 <= iconsToGray) {
+      // fully gray for completed icons (from right)
+      icon.style.filter = "grayscale(100%)";
+      icon.style.opacity = "0.5";
+    } else if (revIndex < iconsToGray && revIndex + 1 > iconsToGray) {
+      // partially gray for the in-between icon
+      const remainder = iconsToGray - revIndex;
+      const grayPct = Math.round(remainder * 100);
+      icon.style.filter = `grayscale(${grayPct}%)`;
+      icon.style.opacity = `${1 - remainder * 0.5}`;
+    } else {
+      // untouched icons
+      icon.style.filter = "grayscale(0%)";
+      icon.style.opacity = "1";
+    }
+  });
+
+  // Hide the whole bar once everything is gray
+  if (currentIndex >= totalFlies) {
+    document.getElementById("flyProgressContainer").classList.add("hidden");
+  }
+}
+
