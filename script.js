@@ -481,7 +481,8 @@ function displayChoice(gender) {
 
 function confirmParents() {
     if (document.getElementById('maleFly').innerHTML == "") {
-        document.getElementById('simMessage').innerHTML = "No male parent selected";
+        document.getElementById('simMessagePreset').innerHTML = "No male parent selected";
+        console.log("nonmamle")
         return;
     }
     else {
@@ -490,7 +491,7 @@ function confirmParents() {
     }
 
     if (document.getElementById('femaleFly').innerHTML == "") {
-        document.getElementById('simMessage').innerHTML = "No female parent selected";
+        document.getElementById('simMessagePreset').innerHTML = "No female parent selected";
         return;
     }
     else {
@@ -942,4 +943,6 @@ function updateBreedProgress(currentIndex) {
     document.getElementById("flyProgressContainer").classList.add("hidden");
   }
 }
+
+
 

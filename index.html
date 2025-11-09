@@ -5,6 +5,7 @@
     <head>
         <title>Fruit Fly Genetics Simulator</title>
         <link rel="stylesheet" href="style.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body onload = "switchMenu('homescreen')">
         <section id = "homescreen" class = "screen">
@@ -12,16 +13,18 @@
             <h1>Fruit Fly Genetics Simulator</h1>
             <p>Simulate fruit fly breeding and observe resulting patterns</p>
             <br>
-            <input type = "button" value = "Use custom parents" id = "chooseCustom" onclick = "switchMenu('customMenu')">
+            
+
+            <input type = "button"  class="button-23" value = "Use custom parents" id = "chooseCustom" onclick = "switchMenu('customMenu')">
             &nbsp;&nbsp;&nbsp;
-            <input type = "button" value = "Use preset parents" id = "choosePreset" onclick = "switchMenu('presetMenu')">
+            <input type = "button" class="button-23"  value = "Use preset parents" id = "choosePreset" onclick = "switchMenu('presetMenu')">
         </section>
 
         <section id = "customMenu" class = "screen">
-            <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
+            <input type = "button" class="button-23" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
             <h3>custom menu</h3>
-            <input type = "button" value = "Toggle Allele Key" id = "keyButton" onclick = "togglePassword('alleleKey')">
-            <input type = "button" value = "Information" id = "customInfo" onclick = "toggleCustomInfo()"> 
+            <input type = "button" class="button-23"value = "Toggle Allele Key" id = "keyButton" onclick = "togglePassword('alleleKey')">
+            <input type = "button" class="button-24" value = "Information" id = "customInfo" onclick = "toggleCustomInfo()"> 
             <br>
             <div id = "infoDiv" style = "display: none;">
                 <p>Viewing the allele key and selecting specific alleles</p>
@@ -31,13 +34,14 @@
             </div>
 
             <br>
-            <input type = "button" value = "Choose traits" id = "chooseTraits" onclick = "chooseTraits()">
-            <input type = "button" value = "Choose alleles" id = "chooseAlleles" onclick = "togglePassword('chooseAlleles')"> 
+            
+            <input type = "button" class="button-23" value = "Choose alleles" id = "chooseAlleles" onclick = "togglePassword('chooseAlleles')"> 
+            <input type = "button" class="button-23" value = "Choose traits" id = "chooseTraits" onclick = "chooseTraits()">
             <br>
             <div id = "allelePassword" style = "display: none;">
-                Enter Password: <input type = "text"  id = "passwordInput">
-                <input type = "button" value = "Submit" id = "submit" onclick = "submitPassword()">
-                <input type = "button" value = "Close" id = "close" onclick = "togglePassword(null)">
+                Enter Password: <input type = "text"  class = " text-custom" id = "passwordInput">
+                <input type = "button" class="button-23"  value = "Submit" id = "submit" onclick = "submitPassword()">
+                <input type = "button"class="button-23"  value = "Close" id = "close" onclick = "togglePassword(null)">
             </div>     
             <div id = "simMessage"></div>
 
@@ -177,7 +181,7 @@
                     </tr>
                 </table>
 
-                <input type = "button" id = "confirmFemaleTraits" value = "Confirm Female" onclick = confirmCustomTraits(true)>
+                <input type = "button" class="button-24" id = "confirmFemaleTraits" value = "Confirm Female" onclick = confirmCustomTraits(true)>
             </div>
 
             <div id = "maleTraits" style = "display: none;">
@@ -263,7 +267,7 @@
                     </tr>
                 </table>
 
-                <input type = "button" id = "confirmMaleTraits" value = "Confirm Male" onclick = confirmCustomTraits(false)>
+                <input type = "button" class="button-24" id = "confirmMaleTraits" value = "Confirm Male" onclick = confirmCustomTraits(false)>
             </div>
             
             
@@ -340,7 +344,7 @@
                 </tr>
                 </table>
 
-                <input type = "button" id = "confirmCustomFemale" value = "Confirm Female" onclick = confirmCustomAlleles(true)>
+                <input type = "button" class="button-24" id = "confirmCustomFemale" value = "Confirm Female" onclick = confirmCustomAlleles(true)>
             </div>
 
             <div id = "alleleMenuMale" style = "display: none;">
@@ -414,16 +418,16 @@
                     </tr>
                 </table>   
                 
-                <input type = "button" id = "confirmCustomMale" value = "Confirm Male" onclick = confirmCustom(false)>
+                <input type = "button" class="button-24" id = "confirmCustomMale" value = "Confirm Male" onclick = confirmCustom(false)>
             </div>
             
-            <input type = "button" id = "customToLab" value = "Go to Lab" onclick = "switchMenu('Lab')">
+            <input type = "button" class="button-24" id = "customToLab" value = "Go to Lab" onclick = "switchMenu('Lab')">
             
             
         </section>
 
         <section id = "presetMenu" class = "screen">
-            <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
+            <input type = "button"class="button-23" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
             <h3>preset</h3>
             <table>
                 <tr>
@@ -433,7 +437,7 @@
                 <tr>
                     <td>
                         <select id = "maleChoices" onchange = "displayChoice('male')">
-                            <option value = "LYBBDYGGRYHHXY">Wild Male</option>
+                            <option value = "LYBBDYGGRYHHXY"selected>Wild Male</option>
                             <option value = "LYbbDYGGRYHHXY">Fly 1</option>
                             <option value = "LYBBdYGGRYHHXY">Fly 2</option>
                             <option value = "SYBBdYGgrYHhXe">Fly 3</option>
@@ -453,7 +457,7 @@
                     </td>
                     <td>
                         <select id = "femaleChoices" onchange = "displayChoice('female')">
-                            <option value = "LLBBDDGGRRHHXX">Wild Female</option>
+                            <option value = "LLBBDDGGRRHHXX" selected>Wild Female</option>
                             <option value = "LLbbDDGGRRHHXX">Fly 16</option>
                             <option value = "LLBBddGGRRHHXX">Fly 17</option>
                             <option value = "LLBBDDggRRHHXX">Fly 18</option>
@@ -478,68 +482,64 @@
             <p>Female Fly:</p>
             <div id = "femaleFly"></div>
             <br>
-            <input type = "button" value = "Confirm parents" id = "confirmParents" onclick = confirmParents()>
+            <div id = "simMessagePreset"></div>
+            <input type = "button" class="button-24" value = "Confirm parents" id = "confirmParents" onclick = confirmParents()>
             <br><br>
-            <div id = "simMessage"></div>
+            
             
         </section>
 
         <section id = "Lab" class = "screen">
             <h1>Lab</h1>
-            <input type = "button" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
-            <input type = "button" value = "return to custom menu" id = "returnCustom" onclick = "switchMenu('customMenu')">
-            <br>
-            <table>
-                <tr>
-                    <th>
-                        <div id="parentJarContainer">
-                            <img id="parentJar" src="images/flyjar.png" alt="jar" class = "jar">
-                            <div id="parentFlies"></div>
-                        </div>  
-                    </th>
-                    <th>
-                       
-                        <div id="savedJarContainer">
-                            <img id="savedJar" src="images/flyjar.png" alt="jar" class = "jar">
-                            <div id="savedFlyArea"></div>
-                        </div>
-                    </th>
-                    <th>
-                        <div id = "flyImage" class="fly-image-container"></div>
-                    </th>
-                </tr>
-                <tr>
-                    <th>
-                        <p>Parent Flies</p> 
-                        <input type = "button" value = "Breed Parents" id = "breedPar" onclick = "breed100(parentFlies[0], parentFlies[1])">
-                        <p>*This will replace all current non-saved lab flies*</p>
+            <input type="button" class="button-23" value="return to home" id="returnHome" onclick="switchMenu('homescreen')">
+    <input type="button" class="button-23" value="return to custom menu" id="returnCustom" onclick="switchMenu('customMenu')">
+    <br><br>
+    <div class="lab-row">
+    <!-- Parent Flies -->
+    <div class="lab-col">
+      <div id="parentJarContainer">
+        <img id="parentJar" src="images/flyjar.png" alt="jar" class="jar">
+        <div id="parentFlies"></div>
+      </div>
+      <p class="label">Parent Flies</p>
+      <input type="button" class="button-24" value="Breed Parents" id="breedPar" onclick="breed100(parentFlies[0], parentFlies[1])">
+      <p class="note">*This will replace all current non-saved lab flies*</p>
+    </div>
 
-                    </th>
-                    <th>
-                        <p>Saved Flies</p>
-                    </th>
-                    <th>
-                        <p>Fly Closeup</p>
-                    </th>
-                </tr>
-                <!-- Zoom Modal -->
-                    <div id="zoomModal" class="hidden">
-                    <div id="zoomContent"></div>
-                    </div>
+    <!-- Saved Flies -->
+    <div class="lab-col">
+      <div id="savedJarContainer">
+        <img id="savedJar" src="images/flyjar.png" alt="jar" class="jar">
+        <div id="savedFlyArea"></div>
+      </div>
+      <p class="label">Saved Flies</p>
+      <br>
+      <div class="lab-buttons">
+        <input type="button" class="button-24" value="Breed" id="breed" onclick="breed100(femaleParent, maleParent)">
+        <input type="button" class="button-24" value="Inspect Fly" id="inspect" onclick="displayFly(currFly, document.getElementById('flyImage'))">
+        <input type="button" class="button-23" value="Save Fly" onclick="saveFly()">
+        <input type="button" class="button-23" value="Dispose Fly" onclick="nextFly()">
+    </div>
+    <div id="flyProgressContainer">
+    <div id="flyProgress"></div>
+  </div>
+    </div>
 
-            </table>
-            
-            <br>
-            <div id = "errorMessage">
+    <!-- Fly Closeup -->
+    <div class="lab-col">
+      <div id="flyImage" class="fly-image-container"></div>
+      <p class="label">Fly Closeup</p>
+    </div>
+  </div>
 
-            </div>
-         
-            <input type = "button" value = "Breed" id = "breed" onclick = "breed100(femaleParent, maleParent)"> <input type = "button" value = "Inspect Fly" id = "inspect" onclick = "displayFly(currFly, document.getElementById('flyImage'))">
-            
-            <input type = "button" value = "Save Fly" onclick = "saveFly()"> <input type = "button" value = "Dispose Fly" onclick = "nextFly()">
-            <div id="flyProgressContainer">
-                <div id="flyProgress"></div>
-            </div>
+  <!-- Zoom Modal -->
+  <div id="zoomModal" class="hidden">
+    <div id="zoomContent"></div>
+  </div>
+
+  <div id="errorMessage"></div>
+
+
 
         </section> 
        
