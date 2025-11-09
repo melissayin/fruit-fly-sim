@@ -235,7 +235,7 @@ function breed100(femaleParent, maleParent) {
     }
     flyChildren.length = 0;
     flyIndex = 0;
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 50; i++) {
         flyChildren[i] = breed(femaleParent, maleParent);
     }
     //console.log(flyChildren)
