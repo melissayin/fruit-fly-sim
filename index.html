@@ -22,7 +22,7 @@
 
         <section id = "customMenu" class = "screen">
             <input type = "button" class="button-23" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
-            <h3>custom menu</h3>
+            <h3>Custom Menu</h3>
             <input type = "button" class="button-23"value = "Toggle Allele Key" id = "keyButton" onclick = "togglePassword('alleleKey')">
             <input type = "button" class="button-24" value = "Information" id = "customInfo" onclick = "toggleCustomInfo()"> 
             <br>
@@ -32,21 +32,28 @@
                 <p>Picking traits will result in a random choice of </p>
                 <p>alleles that will express that phenotype.</p>
             </div>
-
             <br>
             
             <input type = "button" class="button-23" value = "Choose alleles" id = "chooseAlleles" onclick = "togglePassword('chooseAlleles')"> 
             <input type = "button" class="button-23" value = "Choose traits" id = "chooseTraits" onclick = "chooseTraits()">
             <br>
+            <br>
             <div id = "allelePassword" style = "display: none;">
                 Enter Password: <input type = "text"  class = " text-custom" id = "passwordInput">
                 <input type = "button" class="button-23"  value = "Submit" id = "submit" onclick = "submitPassword()">
                 <input type = "button"class="button-23"  value = "Close" id = "close" onclick = "togglePassword(null)">
-            </div>     
+            </div>    
+            <br> 
             <div id = "simMessage"></div>
 
             <div id = "alleleKey" style = "display: none;">
-                <table>
+                <table class = "allele-table">
+                     <thead>
+                    <tr>
+                        <th>Allele</th>
+                        <th>Description</th>
+                    </tr>
+                    </thead>
                     <tr>
                         <td>X<sup>L</sup></td>
                         <td>Wild eyes (X-Linked Incomplete Dominance)</td>
@@ -183,6 +190,7 @@
 
                 <input type = "button" class="button-24" id = "confirmFemaleTraits" value = "Confirm Female" onclick = confirmCustomTraits(true)>
             </div>
+            
 
             <div id = "maleTraits" style = "display: none;">
                 Choose desired traits below (random genotype)
@@ -420,7 +428,7 @@
                 
                 <input type = "button" class="button-24" id = "confirmCustomMale" value = "Confirm Male" onclick = confirmCustom(false)>
             </div>
-            
+            <br><br>
             <input type = "button" class="button-24" id = "customToLab" value = "Go to Lab" onclick = "switchMenu('Lab')">
             
             
@@ -428,7 +436,7 @@
 
         <section id = "presetMenu" class = "screen">
             <input type = "button"class="button-23" value = "return to home" id = "returnHome" onclick = "switchMenu('homescreen')">
-            <h3>preset</h3>
+            <h3>Preset Menu</h3>
             <table>
                 <tr>
                     <th>Male</th>

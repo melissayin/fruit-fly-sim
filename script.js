@@ -233,6 +233,8 @@ function breed100(femaleParent, maleParent) {
         document.getElementById("errorMessage").innerHTML = "You need two parent flies.";
         return;
     }
+    flyChildren.length = 0;
+    flyIndex = 0;
     for (let i = 0; i < 100; i++) {
         flyChildren[i] = breed(femaleParent, maleParent);
     }
@@ -451,6 +453,10 @@ function inspectFly(fly, container) {
 function switchMenu(menuId) {
     let sections = document.getElementsByClassName("screen");
     for (var i = 0; i < sections.length; i++) {
+        if (sections[i].id === "Lab") {
+            const flyImage = document.getElementById("flyImage");
+            if (flyImage) flyImage.textContent = ""; // clear previous fly layers
+        }
         sections[i].style.display = "none";
     }
    
@@ -665,13 +671,24 @@ function toggleCustomInfo() {
 }
 
 function chooseAlleles() {
-    document.getElementById('alleleMenuFemale').style.display = "block";
-
+    
+    if (document.getElementById('alleleMenuFemale').style.display == "none") {
+            document.getElementById('alleleMenuFemale').style.display = "block";
+    }
+    else {
+        document.getElementById('alleleMenuFemale').style.display = "none";
+    }
 
 }
 
 function chooseTraits() {
-    document.getElementById('femaleTraits').style.display = "block";
+    
+    if (document.getElementById('femaleTraits').style.display == "none") {
+            document.getElementById('femaleTraits').style.display = "block";
+    }
+    else {
+        document.getElementById('femaleTraits').style.display = "none";
+    }
 }
 
 function getAction(action) {
@@ -841,6 +858,10 @@ function showZoomFrom(overlayId, dataArr, flyArr) {
     }
   };
 
+  inspect.className = "button-23";
+    dispose.className = "button-23";
+    move.className = "button-23";
+
   menu.appendChild(inspect);
   menu.appendChild(dispose);
   menu.appendChild(move);
@@ -870,17 +891,19 @@ function hideZoom(e) {
 
 
 document.addEventListener("DOMContentLoaded", () => {
-  const parentJar = document.getElementById("parentJar");
-  const savedJar  = document.getElementById("savedJar");
-  const modal     = document.getElementById("zoomModal");
-  if (savedJar)
-    savedJar.addEventListener("click", () => showZoomFrom("savedFlyArea", savedJarData, savedFlies));
- if (parentJar)
-        parentJar.addEventListener("click", () => showZoomFrom("parentFlies", parentJarData, parentFlies));
+    if (window._listenersAdded) return; // Prevent double-binding on iPads
+    window._listenersAdded = true;
+    const parentJar = document.getElementById("parentJar");
+    const savedJar  = document.getElementById("savedJar");
+    const modal     = document.getElementById("zoomModal");
+    if (savedJar)
+        savedJar.addEventListener("click", () => showZoomFrom("savedFlyArea", savedJarData, savedFlies));
+    if (parentJar)
+            parentJar.addEventListener("click", () => showZoomFrom("parentFlies", parentJarData, parentFlies));
 
 
 
-  if (modal)     modal.addEventListener("click", hideZoom);
+    if (modal)     modal.addEventListener("click", hideZoom);
 
   // Handy testing helpers in the console:
   window.addParentFly = () => addIconToJar("parentFlies", parentJarData);
