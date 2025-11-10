@@ -47,13 +47,13 @@ class Fly {
         
         let phenos = [];
         // eyes 
-        if (this.eyes == "LL" || this.eyes == "LY") {
+        if (this.eyes == "LL" || this.eyes == "LY" || this.eyes == "YL" ) {
             phenos[0] = "wildeyes";
         }
         else if (this.eyes == "LS") {
             phenos[0] = "lobe";
         }
-        else if (this.eyes == "SS" || this.eyes == "SY") {
+        else if (this.eyes == "SS" || this.eyes == "SY"|| this.eyes == "YS") {
             phenos[0] = "bar";
         }
 
@@ -66,7 +66,7 @@ class Fly {
         }
 
         // scallopped wings
-        if (this.scallop == "dd" || this.scallop == "dY") {
+        if (this.scallop == "dd" || this.scallop == "dY"|| this.scallop == "Yd") {
             phenos[2] = "scallopped";
         } 
         else {
@@ -82,7 +82,7 @@ class Fly {
         }
 
         // bristles 
-        if (this.forked == "rr" || this.forked == "rY") {
+        if (this.forked == "rr" || this.forked == "rY"|| this.forked == "Yr") {
             phenos[4] = "forked";
         }
         else {
@@ -97,7 +97,7 @@ class Fly {
         }
 
         // antennae
-        if (this.hairy == "Xe") {
+        if (this.hairy == "Xe" || this.hairy == "eX") {
             phenos[6] = "hairy";
         }
         else {
@@ -254,23 +254,21 @@ let savedJarData = []; // holds icon positions + src
 let selectedFlyIndex = null; // which fly is selected in modal
 
 function nextFly() {
-  flyIndex++;
-  updateBreedProgress(flyIndex);
-  if (flyIndex < flyChildren.length) {
-    currFly = flyChildren[flyIndex];
-  } else {
-    currFly = null;
-    document.getElementById("simMessage").innerText = "No more flies!";
-  }
+    flyIndex++;
+    updateBreedProgress(flyIndex);
+    if (flyIndex < flyChildren.length) {
+        currFly = flyChildren[flyIndex];
+    } else {
+        currFly = null;
+        document.getElementById("simMessage").innerText = "No more flies!";
+    }
 
-  const container = document.getElementById("flyImage");
-  container.innerHTML = "";
+    const container = document.getElementById("flyImage");
+    container.innerHTML = "";
 }
 
 function saveFly() {
     savedFlies.push(currFly); 
-    
-    
     addIconToJar("savedFlyArea", savedJarData, "images/wildfly.png", 26);
     console.log(savedFlies);
 
@@ -701,191 +699,195 @@ function getAction(action) {
 
 }
  
-/* ------------------ JAR icons + zoom ------------------ */
+
 
 function addIconToJar(overlayId, dataArr, src = "images/wildfly.png", size = 26) {
-  const area = document.getElementById(overlayId);
-  if (!area) return false;
+    const area = document.getElementById(overlayId);
+    if (!area) return false;
 
-  const w = area.clientWidth;
-  const h = area.clientHeight;
-  const pad = 60;                
-  const minDist = size * 0.7;   
-  const maxAttempts = 120;
+    const w = area.clientWidth;
+    const h = area.clientHeight;
+    const pad = 60;                
+    const minDist = size * 0.7;   
+    const maxAttempts = 120;
 
-  for (let attempt = 0; attempt < maxAttempts; attempt++) {
-    const x = Math.random() * (w - size - pad * 2) + pad;
-    const y = Math.random() * (h - size - pad * 2) + pad;
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+        const x = Math.random() * (w - size - pad * 2) + pad;
+        const y = Math.random() * (h - size - pad * 2) + pad;
 
-    let ok = true;
-    for (const f of dataArr) {
-      const dx = f.x - x, dy = f.y - y;
-      if (Math.hypot(dx, dy) < minDist) { ok = false; break; }
+        let ok = true;
+        for (const f of dataArr) {
+            const dx = f.x - x, dy = f.y - y;
+            if (Math.hypot(dx, dy) < minDist) {
+                ok = false; 
+                break; 
+            }
+        }
+        if (!ok) continue;
+
+        const img = new Image(size, size);
+        img.src = src;
+        img.className = "fly-icon";
+        img.style.left = x + "px";
+        img.style.top  = y + "px";
+
+        area.appendChild(img);
+        dataArr.push({ x, y, src });
+        return true;
     }
-    if (!ok) continue;
-
-    const img = new Image(size, size);
-    img.src = src;
-    img.className = "fly-icon";
-    img.style.left = x + "px";
-    img.style.top  = y + "px";
-
-    area.appendChild(img);
-    dataArr.push({ x, y, src });
-    return true;
-  }
-  return false; 
+    return false; 
 }
 
 function refreshJarIcons(overlayId, dataArr) {
-  const area = document.getElementById(overlayId);
-  if (!area) return;
-  area.innerHTML = "";
-  dataArr.forEach(icon => {
-    const img = new Image(26, 26);
-    img.src = icon.src;
-    img.className = "fly-icon";
-    img.style.left = icon.x + "px";
-    img.style.top  = icon.y + "px";
-    area.appendChild(img);
-  });
+    const area = document.getElementById(overlayId);
+    if (!area) return;
+    area.innerHTML = "";
+    dataArr.forEach(icon => {
+        const img = new Image(26, 26);
+        img.src = icon.src;
+        img.className = "fly-icon";
+        img.style.left = icon.x + "px";
+        img.style.top  = icon.y + "px";
+        area.appendChild(img);
+    });
 }
 
 
 function showZoomFrom(overlayId, dataArr, flyArr) {
-  const modal = document.getElementById("zoomModal");
-  const content = document.getElementById("zoomContent");
-  content.innerHTML = "";
+    const modal = document.getElementById("zoomModal");
+    const content = document.getElementById("zoomContent");
+    content.innerHTML = "";
 
-  const layout = document.createElement("div");
-  layout.className = "zoom-layout";
+    const layout = document.createElement("div");
+    layout.className = "zoom-layout";
 
-  // --- Left side: thumbnails ---
-  const left = document.createElement("div");
-  left.className = "zoom-left";
+    // --- Left side: thumbnails ---
+    const left = document.createElement("div");
+    left.className = "zoom-left";
 
-  dataArr.forEach((f, i) => {
+    dataArr.forEach((f, i) => {
     const img = new Image(96, 96);
     img.src = f.src;
     img.className = "fly-thumb";
     if (i === selectedFlyIndex) img.classList.add("selected-fly");
 
     img.onclick = () => {
-      selectedFlyIndex = i;
-      showZoomFrom(overlayId, dataArr, flyArr);
+        selectedFlyIndex = i;
+        showZoomFrom(overlayId, dataArr, flyArr);
     };
 
     left.appendChild(img);
-  });
+    });
 
-  // --- Right side: preview box ---
-  const right = document.createElement("div");
-  right.className = "zoom-right";
+    // preview box 
+    const right = document.createElement("div");
+    right.className = "zoom-right";
 
-  const previewBox = document.createElement("div");
-  previewBox.className = "fly-preview-container";
-  previewBox.id = "zoomPreview";
+    const previewBox = document.createElement("div");
+    previewBox.className = "fly-preview-container";
+    previewBox.id = "zoomPreview";
 
-  right.appendChild(previewBox);
+    right.appendChild(previewBox);
 
-  // --- Button menu ---
-  const menu = document.createElement("div");
-  menu.className = "fly-menu";
+    // Button menu 
+    const menu = document.createElement("div");
+    menu.className = "fly-menu";
 
-  // Inspect button
-  const inspect = document.createElement("button");
-  inspect.textContent = "Inspect";
-  inspect.onclick = () => {
-  if (selectedFlyIndex !== null) {
-    const preview = document.getElementById("zoomPreview");
-    preview.innerHTML = "";
+    // Inspect button
+    const inspect = document.createElement("button");
+    inspect.textContent = "Inspect";
+    inspect.onclick = () => {
+        if (selectedFlyIndex !== null) {
+            const preview = document.getElementById("zoomPreview");
+            preview.innerHTML = "";
 
-    // update currFly too
-    currFly = flyArr[selectedFlyIndex];
+            // update currFly too
+            currFly = flyArr[selectedFlyIndex];
 
-    displayFly(currFly, preview);
-  }
-};
+            displayFly(currFly, preview);
+        }
+    };
 
 
-  // Dispose button
-  const dispose = document.createElement("button");
-  dispose.textContent = "Dispose";
-  dispose.onclick = () => {
-    if (selectedFlyIndex !== null) {
-      flyArr.splice(selectedFlyIndex, 1);
-      dataArr.splice(selectedFlyIndex, 1);
+    // Dispose button
+    const dispose = document.createElement("button");
+    dispose.textContent = "Dispose";
+    dispose.onclick = () => {
+        if (selectedFlyIndex !== null) {
+            flyArr.splice(selectedFlyIndex, 1);
+            dataArr.splice(selectedFlyIndex, 1);
 
-      refreshJarIcons(overlayId, dataArr);
+            refreshJarIcons(overlayId, dataArr);
 
-      selectedFlyIndex = null;
-      showZoomFrom(overlayId, dataArr, flyArr);
+            selectedFlyIndex = null;
+            showZoomFrom(overlayId, dataArr, flyArr);
+        }
+    };
+
+    // Move button 
+    const move = document.createElement("button");
+    if (overlayId === "savedFlyArea") {
+        move.textContent = "Move to Parent";
+    } 
+    else {
+        move.textContent = "Move to Saved";
     }
-  };
 
-  // Move button (context-aware)
-  const move = document.createElement("button");
-  if (overlayId === "savedFlyArea") {
-    move.textContent = "Move to Parent";
-  } else {
-    move.textContent = "Move to Saved";
-  }
-
-  move.onclick = () => {
+    move.onclick = () => {
     if (selectedFlyIndex !== null) {
-      const f = dataArr[selectedFlyIndex];
+        const f = dataArr[selectedFlyIndex];
 
-      if (overlayId === "savedFlyArea") {
-        // saved → parent
-        addIconToJar("parentFlies", parentJarData, f.src, 26);
-        parentFlies.push(flyArr[selectedFlyIndex]); // track in parentFlies array
-        flyArr.splice(selectedFlyIndex, 1);
-        dataArr.splice(selectedFlyIndex, 1);
-        refreshJarIcons("savedFlyArea", dataArr);
-        refreshJarIcons("parentFlies", parentJarData);
-      } else if (overlayId === "parentFlies") {
-        // parent → saved
-        addIconToJar("savedFlyArea", savedJarData, f.src, 26);
-        savedFlies.push(flyArr[selectedFlyIndex]); // track in savedFlies array
-        flyArr.splice(selectedFlyIndex, 1);
-        dataArr.splice(selectedFlyIndex, 1);
-        refreshJarIcons("parentFlies", dataArr);
-        refreshJarIcons("savedFlyArea", savedJarData);
-      }
+        if (overlayId === "savedFlyArea") {
+            // saved → parent
+            addIconToJar("parentFlies", parentJarData, f.src, 26);
+            parentFlies.push(flyArr[selectedFlyIndex]); // track in parentFlies array
+            flyArr.splice(selectedFlyIndex, 1);
+            dataArr.splice(selectedFlyIndex, 1);
+            refreshJarIcons("savedFlyArea", dataArr);
+            refreshJarIcons("parentFlies", parentJarData);
+        } 
+        else if (overlayId === "parentFlies") {
+            // parent → saved
+            addIconToJar("savedFlyArea", savedJarData, f.src, 26);
+            savedFlies.push(flyArr[selectedFlyIndex]); // track in savedFlies array
+            flyArr.splice(selectedFlyIndex, 1);
+            dataArr.splice(selectedFlyIndex, 1);
+            refreshJarIcons("parentFlies", dataArr);
+            refreshJarIcons("savedFlyArea", savedJarData);
+        }
 
-      selectedFlyIndex = null;
-      showZoomFrom(overlayId, dataArr, flyArr);
+        selectedFlyIndex = null;
+        showZoomFrom(overlayId, dataArr, flyArr);
     }
-  };
+    };
 
-  inspect.className = "button-23";
+    inspect.className = "button-23";
     dispose.className = "button-23";
     move.className = "button-23";
 
-  menu.appendChild(inspect);
-  menu.appendChild(dispose);
-  menu.appendChild(move);
+    menu.appendChild(inspect);
+    menu.appendChild(dispose);
+    menu.appendChild(move);
 
-  left.appendChild(menu);
+    left.appendChild(menu);
 
-  layout.appendChild(left);
-  layout.appendChild(right);
-  content.appendChild(layout);
+    layout.appendChild(left);
+    layout.appendChild(right);
+    content.appendChild(layout);
 
-  modal.classList.remove("hidden");
+    modal.classList.remove("hidden");
 
-  console.log("PARENT INFO")
-  console.log(parentJarData)
-  console.log(parentFlies)
+    console.log("PARENT INFO")
+    console.log(parentJarData)
+    console.log(parentFlies)
 }
 
 
 
 function hideZoom(e) {
-  // Only close if clicked the dark backdrop (not the white content box)
-  if (e.target.id === "zoomModal") {
-    e.currentTarget.classList.add("hidden");
-  }
+    if (e.target.id === "zoomModal") {
+        e.currentTarget.classList.add("hidden");
+    }
 }
 
 
@@ -899,72 +901,68 @@ document.addEventListener("DOMContentLoaded", () => {
     if (savedJar)
         savedJar.addEventListener("click", () => showZoomFrom("savedFlyArea", savedJarData, savedFlies));
     if (parentJar)
-            parentJar.addEventListener("click", () => showZoomFrom("parentFlies", parentJarData, parentFlies));
-
-
-
-    if (modal)     modal.addEventListener("click", hideZoom);
+        parentJar.addEventListener("click", () => showZoomFrom("parentFlies", parentJarData, parentFlies));
+    if (modal) modal.addEventListener("click", hideZoom);
 
   // Handy testing helpers in the console:
   window.addParentFly = () => addIconToJar("parentFlies", parentJarData);
   window.addSavedFly  = () => addIconToJar("savedFlyArea", savedJarData);
-});
+}
+);
 
 
 function showBreedProgress(totalFlies) {
-  const container = document.getElementById("flyProgressContainer");
-  const progress = document.getElementById("flyProgress");
-  progress.innerHTML = ""; // reset
-  container.classList.remove("hidden");
+    const container = document.getElementById("flyProgressContainer");
+    const progress = document.getElementById("flyProgress");
+    progress.innerHTML = ""; // reset
+    container.classList.remove("hidden");
 
-  // Always show 10 icons for proportional display
-  const iconCount = 10;
-  for (let i = 0; i < iconCount; i++) {
-    const icon = document.createElement("div");
-    icon.className = "fly-progress-icon";
-    // optional fallback: emoji version
-    // icon.textContent = "🪰";
-    progress.appendChild(icon);
-  }
+    const iconCount = 10;
+    for (let i = 0; i < iconCount; i++) {
+        const icon = document.createElement("div");
+        icon.className = "fly-progress-icon";
+        progress.appendChild(icon);
+    }
 
-  // Store total for proportional fading
-  progress.dataset.totalFlies = totalFlies;
+    progress.dataset.totalFlies = totalFlies;
 }
 
 function updateBreedProgress(currentIndex) {
-  const progress = document.getElementById("flyProgress");
-  const icons = progress.querySelectorAll(".fly-progress-icon");
-  const totalFlies = Number(progress.dataset.totalFlies) || 100;
-  const progressFraction = currentIndex / totalFlies;
+    const progress = document.getElementById("flyProgress");
+    const icons = progress.querySelectorAll(".fly-progress-icon");
+    const totalFlies = Number(progress.dataset.totalFlies) || 100;
+    const progressFraction = currentIndex / totalFlies;
 
-  // compute how many icons (from the right) should be gray
-  const iconsToGray = progressFraction * icons.length;
+    // compute how many icons (from the right) should be gray
+    const iconsToGray = progressFraction * icons.length;
 
-  icons.forEach((icon, i) => {
+    icons.forEach((icon, i) => {
     // reversed index: 0 = leftmost, last = rightmost
     const revIndex = icons.length - 1 - i;
 
     if (revIndex + 1 <= iconsToGray) {
-      // fully gray for completed icons (from right)
-      icon.style.filter = "grayscale(100%)";
-      icon.style.opacity = "0.5";
-    } else if (revIndex < iconsToGray && revIndex + 1 > iconsToGray) {
-      // partially gray for the in-between icon
-      const remainder = iconsToGray - revIndex;
-      const grayPct = Math.round(remainder * 100);
-      icon.style.filter = `grayscale(${grayPct}%)`;
-      icon.style.opacity = `${1 - remainder * 0.5}`;
-    } else {
-      // untouched icons
-      icon.style.filter = "grayscale(0%)";
-      icon.style.opacity = "1";
+        // fully gray for completed icons (from right)
+        icon.style.filter = "grayscale(100%)";
+        icon.style.opacity = "0.5";
+    } 
+    else if (revIndex < iconsToGray && revIndex + 1 > iconsToGray) {
+        // partially gray for the in-between icon
+        const remainder = iconsToGray - revIndex;
+        const grayPct = Math.round(remainder * 100);
+        icon.style.filter = `grayscale(${grayPct}%)`;
+        icon.style.opacity = `${1 - remainder * 0.5}`;
+    } 
+    else {
+        // untouched icons
+        icon.style.filter = "grayscale(0%)";
+        icon.style.opacity = "1";
     }
-  });
+    });
 
-  // Hide the whole bar once everything is gray
-  if (currentIndex >= totalFlies) {
+    // Hide the whole bar once everything is gray
+    if (currentIndex >= totalFlies) {
     document.getElementById("flyProgressContainer").classList.add("hidden");
-  }
+    }
 }
 
 

@@ -34,8 +34,8 @@
             </div>
             <br>
             
-            <input type = "button" class="button-23" value = "Choose alleles" id = "chooseAlleles" onclick = "togglePassword('chooseAlleles')"> 
-            <input type = "button" class="button-23" value = "Choose traits" id = "chooseTraits" onclick = "chooseTraits()">
+            <input type = "button" class="button-23" value = "Choose Genotype" id = "chooseAlleles" onclick = "togglePassword('chooseAlleles')"> 
+            <input type = "button" class="button-23" value = "Choose Phenotype" id = "chooseTraits" onclick = "chooseTraits()">
             <br>
             <br>
             <div id = "allelePassword" style = "display: none;">
@@ -117,6 +117,7 @@
             <div id = "currCustom"></div>
             <div id = "femaleTraits" style = "display: none;">
                 Choose desired traits below (random genotype)
+                <br>
                 Female Fly: 
                 <table>
                     <tr>
@@ -188,12 +189,14 @@
                     </tr>
                 </table>
 
+
                 <input type = "button" class="button-24" id = "confirmFemaleTraits" value = "Confirm Female" onclick = confirmCustomTraits(true)>
             </div>
             
 
             <div id = "maleTraits" style = "display: none;">
                 Choose desired traits below (random genotype)
+                <br>
                 Male Fly: 
                 <table>
                     <tr>
@@ -280,7 +283,7 @@
             
             
             <div id = "alleleMenuFemale" style = "display: none;">
-                Choose female fly alleles: 
+                Choose female fly genotype: 
                 <table>
                     <tr>
                         <td>Eye Shape</td>
@@ -356,7 +359,7 @@
             </div>
 
             <div id = "alleleMenuMale" style = "display: none;">
-                Choose male fly alleles:  
+                Choose male fly genotype:  
                 <table>
                     <tr>
                         <td>Eye Color</td>

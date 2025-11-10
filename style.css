@@ -98,8 +98,6 @@ table {
   image-rendering: -webkit-optimize-contrast;
 }
 
-
-/* --- Zoom modal --- */
 #zoomModal.hidden { display: none; }
 
 #zoomModal {
@@ -120,9 +118,9 @@ table {
   border-radius: 12px;
   max-width: min(90vw, 900px);
   max-height: 80vh;
-  overflow-y: auto; /* only vertical scroll if needed */
-  overflow-x: hidden; /* prevents horizontal scroll/empty space */
-  display: flex; /* since zoom-layout handles its own flex, you don’t need grid here */
+  overflow-y: auto; 
+  overflow-x: hidden;
+  display: flex; 
   justify-content: center;
 }
 
@@ -158,7 +156,7 @@ table {
   display: flex;
   gap: 16px;
   align-items: center;
-  height: 400px; /* or whatever height you want for the modal */
+  height: 400px; 
 }
 
 
@@ -175,7 +173,7 @@ table {
   display: flex;
   align-items: center;
   justify-content: center;
-  position: relative; /* required for absolute-positioned layers */
+  position: relative; 
   overflow: hidden;
 }
 .fly-preview-container {
@@ -196,7 +194,7 @@ table {
   max-height: 100%;
   width: auto;
   height: auto;
-  transform: translate(-50%, -50%) scale(4); /* optional scale tweak */
+  transform: translate(-50%, -50%) scale(4); 
   transform-origin: center;
 }
 @media (max-width: 900px) {
@@ -367,7 +365,7 @@ p{
 }
 .lab-row {
   display: flex;
-  justify-content: center;  /* centers all columns as a group */
+  justify-content: center; 
   align-items: flex-start;
   gap: 2rem;
   flex-wrap: wrap;
@@ -377,7 +375,7 @@ p{
 .lab-col {
   display: flex;
   flex-direction: column;
-  align-items: center;       /* centers everything in each column */
+  align-items: center;      
   justify-content: flex-start;
   text-align: center;
 }
