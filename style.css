@@ -58,16 +58,12 @@ table {
   aspect-ratio: 1;
 }
 
-.jar {
-  width: 100%;
-  height: 100%;
-}
-  
+
 
 #parentJarContainer, #savedJarContainer {
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
 }
 
 #parentJar, #savedJar {
@@ -450,4 +446,75 @@ p{
 
 .allele-table tbody tr:nth-child(even) {
   background-color: #f2f6fc;
+}
+
+#offspringJarContainer {
+  position: relative;
+  width: 260px;
+  height: 260px;
+  margin-top: 8px;
+}
+
+#offspringFlyArea {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  overflow: hidden;
+  clip-path: inset(10% 10% 12% 10% round 12%);
+}
+
+.offspring-fly {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  background-image: url("images/wildfly.png");
+  background-size: cover;
+  opacity: 1;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.offspring-fly.used {
+  opacity: 0.25;
+  transform: scale(0.8);
+  filter: grayscale(100%);
+}
+
+#Lab {
+  min-height: 100vh;
+  overflow-y: auto;   
+  overflow-x: hidden;
+}
+
+
+.lab-row {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  flex-wrap: nowrap;  
+}
+.lab-col {
+  flex: 1;
+  min-width: 0;
+}
+
+
+@media (max-width: 900px) {
+  .lab-row {
+    flex-direction: column;
+    overflow-y: auto;
+  }
+}
+
+
+.lab-col {
+  flex: 1;
+  min-width: 0;
+}
+
+
+.jar {
+  width: 200px;   
+  height: auto;
+  display: block;
 }

@@ -240,7 +240,23 @@ function breed100(femaleParent, maleParent) {
     }
     //console.log(flyChildren)
     currFly = flyChildren[0]; 
-    showBreedProgress(flyChildren.length);
+    // reset offspring jar
+    offspringFlies.length = 0;
+    offspringJarData.length = 0;
+    document.getElementById("offspringFlyArea").innerHTML = "";
+
+    // fill offspring jar visually
+    flyChildren.forEach(fly => {
+    offspringFlies.push(fly);
+    addIconToJar(
+        "offspringFlyArea",
+        offspringJarData,
+        "images/wildfly.png",
+        26
+    );
+    });
+
+    //showBreedProgress(flyChildren.length);
     //console.log("current fly" + currFly);
     //document.getElementById("flyDisplay").innerHTML = currentFly.name + ": " + currentFly.getPhenotype().join(", ");
     return flyChildren;
@@ -253,19 +269,28 @@ let savedFlies = [];  // holds Fly objects
 let savedJarData = []; // holds icon positions + src
 let selectedFlyIndex = null; // which fly is selected in modal
 
-function nextFly() {
-    flyIndex++;
-    updateBreedProgress(flyIndex);
-    if (flyIndex < flyChildren.length) {
-        currFly = flyChildren[flyIndex];
-    } else {
-        currFly = null;
-        document.getElementById("simMessage").innerText = "No more flies!";
-    }
+let offspringJarData = [];   // visual icon positions
+let offspringFlies = [];    // logical offspring flies
 
-    const container = document.getElementById("flyImage");
-    container.innerHTML = "";
+
+function nextFly() {
+  // remove one offspring fly visually
+  offspringFlies.shift();
+  offspringJarData.shift();
+  refreshJarIcons("offspringFlyArea", offspringJarData);
+
+  flyIndex++;
+
+  if (flyIndex < flyChildren.length) {
+    currFly = flyChildren[flyIndex];
+  } else {
+    currFly = null;
+    document.getElementById("simMessage").innerText = "No more flies!";
+  }
+
+  document.getElementById("flyImage").innerHTML = "";
 }
+
 
 function saveFly() {
     savedFlies.push(currFly); 
@@ -448,27 +473,32 @@ function inspectFly(fly, container) {
         nextFly();
     
 }
-function switchMenu(menuId) {
-    let sections = document.getElementsByClassName("screen");
-    for (var i = 0; i < sections.length; i++) {
-        if (sections[i].id === "Lab") {
-            const flyImage = document.getElementById("flyImage");
-            if (flyImage) flyImage.textContent = ""; // clear previous fly layers
-        }
-        sections[i].style.display = "none";
-    }
-   
-    let sectionToShow = document.getElementById(menuId);
-    if (sectionToShow == 'Lab') {
-        document.getElementById('maleF1').innerHTML = document.getElementById('maleFly').innerHTML;
-        document.getElementById('femaleF1').innerHTML = document.getElementById('femaleFly').innerHTML;
-        console.log("happened")
-    }
-    
-    document.getElementById(menuId).style.display = "block";
-    
+function loadParentsIntoJar() {
+  parentFlies.length = 0;
+  parentJarData.length = 0;
 
+  if (!femaleParent || !maleParent) return;
+
+  parentFlies.push(femaleParent, maleParent);
+
+  addIconToJar("parentFlies", parentJarData, "images/wildfly.png", 28);
+  addIconToJar("parentFlies", parentJarData, "images/wildfly.png", 28);
 }
+
+function switchMenu(menuId) {
+  let sections = document.getElementsByClassName("screen");
+  for (let i = 0; i < sections.length; i++) {
+    sections[i].style.display = "none";
+  }
+
+  document.getElementById(menuId).style.display = "block";
+
+  if (menuId === "Lab") {
+    loadParentsIntoJar();
+    document.getElementById("offspringFlyArea").innerHTML = "";
+  }
+}
+
 
 function displayChoice(gender) {
     if (gender == "male") {
@@ -912,58 +942,98 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 function showBreedProgress(totalFlies) {
-    const container = document.getElementById("flyProgressContainer");
-    const progress = document.getElementById("flyProgress");
-    progress.innerHTML = ""; // reset
-    container.classList.remove("hidden");
+  const area = document.getElementById("offspringFlyArea");
+  area.innerHTML = "";
 
-    const iconCount = 10;
-    for (let i = 0; i < iconCount; i++) {
-        const icon = document.createElement("div");
-        icon.className = "fly-progress-icon";
-        progress.appendChild(icon);
-    }
+  const cols = 6;
+  const spacingX = 38;
+  const spacingY = 34;
+  const startX = 20;
+  const startY = 20;
 
-    progress.dataset.totalFlies = totalFlies;
+  for (let i = 0; i < totalFlies; i++) {
+    const fly = document.createElement("div");
+    fly.className = "offspring-fly";
+
+    const col = i % cols;
+    const row = Math.floor(i / cols);
+
+    fly.style.left = `${startX + col * spacingX}px`;
+    fly.style.top  = `${startY + row * spacingY}px`;
+
+    area.appendChild(fly);
+  }
 }
+
 
 function updateBreedProgress(currentIndex) {
-    const progress = document.getElementById("flyProgress");
-    const icons = progress.querySelectorAll(".fly-progress-icon");
-    const totalFlies = Number(progress.dataset.totalFlies) || 100;
-    const progressFraction = currentIndex / totalFlies;
+  const flies = document.querySelectorAll("#offspringFlyArea .offspring-fly");
 
-    // compute how many icons (from the right) should be gray
-    const iconsToGray = progressFraction * icons.length;
-
-    icons.forEach((icon, i) => {
-    // reversed index: 0 = leftmost, last = rightmost
-    const revIndex = icons.length - 1 - i;
-
-    if (revIndex + 1 <= iconsToGray) {
-        // fully gray for completed icons (from right)
-        icon.style.filter = "grayscale(100%)";
-        icon.style.opacity = "0.5";
-    } 
-    else if (revIndex < iconsToGray && revIndex + 1 > iconsToGray) {
-        // partially gray for the in-between icon
-        const remainder = iconsToGray - revIndex;
-        const grayPct = Math.round(remainder * 100);
-        icon.style.filter = `grayscale(${grayPct}%)`;
-        icon.style.opacity = `${1 - remainder * 0.5}`;
-    } 
-    else {
-        // untouched icons
-        icon.style.filter = "grayscale(0%)";
-        icon.style.opacity = "1";
+  flies.forEach((fly, i) => {
+    if (i < currentIndex) {
+      fly.classList.add("used");
     }
-    });
-
-    // Hide the whole bar once everything is gray
-    if (currentIndex >= totalFlies) {
-    document.getElementById("flyProgressContainer").classList.add("hidden");
-    }
+  });
 }
 
+function updateOffspringProgress() {
+  const offspringFlies =
+    document.querySelectorAll("#offspringFlyArea .offspring-fly");
+
+  offspringFlies.forEach((fly, index) => {
+    if (index >= offspringFlies.length) {
+      fly.classList.add("used");
+    }
+  });
+}
+
+
+function emptyJobJar(jobId) {
+  const jobFlyArea = document.getElementById(jobId + "FlyArea");
+  const offspringArea = document.getElementById("offspringFlyArea");
+
+  if (!jobFlyArea || !offspringArea) return;
+
+  const flies = Array.from(jobFlyArea.children);
+
+  flies.forEach((fly, i) => {
+    const clone = fly.cloneNode(true);
+    clone.classList.add("offspring-fly");
+
+    // spread flies visually inside offspring jar
+    clone.style.left = `${10 + (i % 6) * 35}px`;
+    clone.style.top  = `${20 + Math.floor(i / 6) * 30}px`;
+
+    offspringArea.appendChild(clone);
+  });
+
+  // clear job jar
+  jobFlyArea.innerHTML = "";
+
+  updateOffspringProgress();
+}
+
+function emptyJar(jarType) {
+  if (jarType === "offspring") {
+    offspringFlies.length = 0;
+    offspringJarData.length = 0;
+    flyChildren.length = 0;
+    flyIndex = 0;
+    currFly = null;
+    document.getElementById("offspringFlyArea").innerHTML = "";
+  }
+
+  if (jarType === "saved") {
+    savedFlies.length = 0;
+    savedJarData.length = 0;
+    document.getElementById("savedFlyArea").innerHTML = "";
+  }
+
+  if (jarType === "parent") {
+    parentFlies.length = 0;
+    parentJarData.length = 0;
+    document.getElementById("parentFlies").innerHTML = "";
+  }
+}
 
 
