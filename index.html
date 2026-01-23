@@ -510,42 +510,45 @@
 
                 <!-- Parents + Offspring -->
                 <div class="lab-col">
-                <div id="parentJarContainer">
-                    <img id="parentJar" src="images/flyjar.png" class="jar">
-                    <div id="parentFlies"></div>
-                </div>
+                    <div id="parentJarContainer">
+                        <img id="parentJar" src="images/flyjar.png" class="jar">
+                        <div id="parentFlies"></div>
+                    </div>
 
-                <p class="label">Parent Flies</p>
-                <input type="button" class="button-24" value="Breed Parents"onclick="breed100(parentFlies[0], parentFlies[1])">
-                <button class="button-23" onclick="emptyJar('parent')">Empty Jar</button>
+                    <p class="label">Parent Flies</p>
+                    <div class = "jar-buttons">
+                        <input type="button" class="button-24" value="Breed Parents"onclick="breed100(parentFlies[0], parentFlies[1])">
+                        <button class="button-23" onclick="emptyJar('parent')">Empty Jar</button>
+                    </div>
+                    <br>
+                    <div id="offspringJarContainer">
+                        <img src="images/flyjar.png" class="jar">
+                        <div id="offspringFlyArea"></div>
+                        <p class="label"><strong>Offspring</strong></p>
+                    </div>
 
-                <div id="offspringJarContainer">
-                    <img src="images/flyjar.png" class="jar">
-                    <div id="offspringFlyArea"></div>
-                    <p class="label"><strong>Offspring</strong></p>
-                </div>
-
-                <button class="button-23" onclick="emptyJar('offspring')">Empty Jar</button>
+                    <button class="button-23" onclick="emptyJar('offspring')">Empty Jar</button>
                 </div>
 
                 <!-- Saved Flies -->
                 <div class="lab-col">
-                <div id="savedJarContainer">
-                    <img id="savedJar" src="images/flyjar.png" class="jar">
-                    <div id="savedFlyArea"></div>
+                    <div id="savedJarContainer">
+                        <img id="savedJar" src="images/flyjar.png" class="jar">
+                        <div id="savedFlyArea"></div>
+                        
+                    </div>
                     <p class="label">Saved Flies</p>
-                </div>
-
-                
-                <button class="button-23" onclick="emptyJar('saved')">Empty Jar</button>
-
-                <div class="lab-buttons">
-                    <input type="button" class="button-24" value="Inspect Fly"onclick="displayFly(currFly, document.getElementById('flyImage'))">
+                    
+                    <button class="button-23" onclick="emptyJar('saved')">Empty Jar</button>
                     <br><br>
-                    <input type="button" class="button-23" value="Save Fly" onclick="saveFly()">
-                    <input type="button" class="button-23" value="Dispose Fly" onclick="nextFly()">
-                </div>
-                <div id = "errorMessage"></div>
+                    <div class="lab-buttons">
+                        <input type="button" class="button-24" value="Inspect Fly"onclick="displayFly(currFly, document.getElementById('flyImage'))">
+                        <br><br>
+                        <input type="button" class="button-23" value="Save Fly" onclick="saveFly()">
+                        <input type="button" class="button-23" value="Dispose Fly" onclick="nextFly()">
+                    </div>
+                    <br>
+                    <div id = "errorMessage"></div>
                 </div>
 
                 <!-- Fly Closeup -->
