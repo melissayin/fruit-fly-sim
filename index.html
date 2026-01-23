@@ -516,8 +516,8 @@
                 </div>
 
                 <p class="label">Parent Flies</p>
-                <input type="button" class="button-24" value="Breed Parents"
-                        onclick="breed100(parentFlies[0], parentFlies[1])">
+                <input type="button" class="button-24" value="Breed Parents"onclick="breed100(parentFlies[0], parentFlies[1])">
+                <button class="button-23" onclick="emptyJar('parent')">Empty Jar</button>
 
                 <div id="offspringJarContainer">
                     <img src="images/flyjar.png" class="jar">
@@ -533,9 +533,11 @@
                 <div id="savedJarContainer">
                     <img id="savedJar" src="images/flyjar.png" class="jar">
                     <div id="savedFlyArea"></div>
+                    <p class="label">Saved Flies</p>
                 </div>
 
-                <p class="label">Saved Flies</p>
+                
+                <button class="button-23" onclick="emptyJar('saved')">Empty Jar</button>
 
                 <div class="lab-buttons">
                     <input type="button" class="button-24" value="Inspect Fly"onclick="displayFly(currFly, document.getElementById('flyImage'))">
