@@ -188,11 +188,7 @@ table {
   transform: translate(-50%, -50%) scale(4); 
   transform-origin: center;
 }
-@media (max-width: 900px) {
-  .fly-preview-container .fly-layer {
-    transform: translate(-50%, -50%) scale(2);
-  }
-}
+
 /*progress bar*/
 .fly-progress-icon.used {
   opacity: 0;
@@ -443,7 +439,7 @@ p{
   transform: translate(-50%, -50%);
 
   margin-top: 20px;
-  margin-bottom: 20px;
+margin-bottom: 20px;
 }
 
 .offspring-fly {
