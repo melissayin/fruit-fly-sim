@@ -39,8 +39,13 @@ table {
   left: 0;
   width: 100%;
   height: auto;
-  will-change: transform;
-  image-rendering: optimizeSpeed;
+ 
+ 
+}
+
+.fly-layer,
+.fly-icon {
+  image-rendering: auto;
 }
 
 .jarSection {
@@ -86,9 +91,12 @@ table {
   height: 26px;
   user-select: none;
   -webkit-user-drag: none;
-  image-rendering: -webkit-optimize-contrast;
+ 
 }
 
+.fly-preview-container img {
+  width: 360px;
+}
 
 
 #zoomModal.hidden { display: none; }
