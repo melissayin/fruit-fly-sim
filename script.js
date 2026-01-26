@@ -737,7 +737,8 @@ function addIconToJar(overlayId, dataArr, src = "images/wildfly.png", size = 26)
 
     const w = area.clientWidth;
     const h = area.clientHeight;
-    const pad = 60;                
+    const pad = size / 2 + 8;
+;                
     const minDist = size * 0.7;   
     const maxAttempts = 120;
 
@@ -925,13 +926,17 @@ function hideZoom(e) {
 document.addEventListener("DOMContentLoaded", () => {
     if (window._listenersAdded) return; // Prevent double-binding on iPads
     window._listenersAdded = true;
+    
     const parentJar = document.getElementById("parentJar");
     const savedJar  = document.getElementById("savedJar");
     const modal     = document.getElementById("zoomModal");
     if (savedJar)
         savedJar.addEventListener("click", () => showZoomFrom("savedFlyArea", savedJarData, savedFlies));
     if (parentJar)
-        parentJar.addEventListener("click", () => showZoomFrom("parentFlies", parentJarData, parentFlies));
+        parentJar.addEventListener("click", (e) => {
+    e.stopPropagation();
+    showZoomFrom("parentFlies", parentJarData, parentFlies);
+  });
     if (modal) modal.addEventListener("click", hideZoom);
 
   // Handy testing helpers in the console:

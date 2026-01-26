@@ -505,6 +505,7 @@
 
             <input type="button" class="button-23" value="return to home" onclick="switchMenu('homescreen')">
             <input type="button" class="button-23" value="return to custom menu" onclick="switchMenu('customMenu')">
+            <input type="button" class="button-23" value="return to preset menu" onclick="switchMenu('presetMenu')">
 
             <div class="lab-row">
 
@@ -524,9 +525,9 @@
                     <div id="offspringJarContainer">
                         <img src="images/flyjar.png" class="jar">
                         <div id="offspringFlyArea"></div>
-                        <p class="label"><strong>Offspring</strong></p>
+                        
                     </div>
-
+<p class="label"><strong>Offspring</strong></p>     
                     <button class="button-23" onclick="emptyJar('offspring')">Empty Jar</button>
                 </div>
 
@@ -559,6 +560,10 @@
 
             </div>
         </section>
+        <!-- Fly inspection modal -->
+        <div id="zoomModal" class="hidden">
+            <div id="zoomContent"></div>
+        </div>
 
        
         <script src="script.js"></script>
