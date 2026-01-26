@@ -50,7 +50,7 @@ class Fly {
         if (this.eyes == "LL" || this.eyes == "LY" || this.eyes == "YL" ) {
             phenos[0] = "wildeyes";
         }
-        else if (this.eyes == "LS") {
+        else if (this.eyes == "LS" || this.eyes == "SL") {
             phenos[0] = "lobe";
         }
         else if (this.eyes == "SS" || this.eyes == "SY"|| this.eyes == "YS") {
